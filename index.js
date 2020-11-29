@@ -24,6 +24,7 @@ mongoose.connect(uri,{ useUnifiedTopology: true,  useNewUrlParser: true } ).then
   const routes = require('./routes/routes');
   const secureRoute = require('./routes/secure-routes');
   const openRoute = require('./routes/open-routes');
+  const adminRoute = require('./routes/admin-routes');
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -38,6 +39,7 @@ app.use('/',routes);
 //app.use('/api/secure',passport.authenticate('jwt', { session: false }), secureRoute);
 app.use('/api/secure',secureRoute);
 app.use('/api/open',openRoute);
+app.use('/api/admin',adminRoute);
 
 Courses.count(function(err, result){
     if(err) console.log(err);

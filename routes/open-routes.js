@@ -2,15 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Courses = require('../models/courses');
 const Schedules = require('../models/schedules');
+const Reviews = require('../models/review');
 
-router.get(
-  '/',
-  (req, res, next) => {
-    res.json({
-      message: 'Welcome Page',
-    })
-  }
-);
 
 router.get('/courses/:subjectId/:courseId',(req,res)=>{
     let subject  = req.params.subjectId;
@@ -40,7 +33,7 @@ router.get('/courses/:text',(req,res)=>{
 })
 
 router.get('/schedules',(req,res)=>{
-      Schedules.find({},function(err,result){
+      Schedules.find({visibility:"public"},function(err,result){
           if(err){
               res.json(err)
           }else{
@@ -48,5 +41,15 @@ router.get('/schedules',(req,res)=>{
           }
       })
 })
+
+router.get('/reviews',(req,res)=>{
+    Reviews.find({},function(err,result){
+        if(err){
+            res.json(err)
+        }else{
+            res.json(result);
+        }
+    })
+ })
 
 module.exports = router;
