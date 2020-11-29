@@ -35,7 +35,8 @@ app.use((req,res, next) => {
 
 app.use('/',routes);
 
-app.use('/api/secure',passport.authenticate('jwt', { session: false }), secureRoute);
+//app.use('/api/secure',passport.authenticate('jwt', { session: false }), secureRoute);
+app.use('/api/secure',secureRoute);
 app.use('/api/open',openRoute);
 
 Courses.count(function(err, result){

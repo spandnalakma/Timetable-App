@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Courses = require('../models/courses');
+const Schedules = require('../models/schedules');
 
 router.get(
   '/',
@@ -36,6 +37,16 @@ router.get('/courses/:text',(req,res)=>{
             res.json(result);
         }
     })
+})
+
+router.get('/schedules',(req,res)=>{
+      Schedules.find({},function(err,result){
+          if(err){
+              res.json(err)
+          }else{
+              res.json(result);
+          }
+      })
 })
 
 module.exports = router;
