@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const fs = require('fs');
+const cookieSession = require('cookie-session');
 
 
 const UserModel = require('./models/users');
@@ -26,6 +27,12 @@ mongoose.connect(uri,{ useUnifiedTopology: true,  useNewUrlParser: true } ).then
   const openRoute = require('./routes/open-routes');
   const adminRoute = require('./routes/admin-routes');
 
+app.use(cookieSession({
+    maxAge: 24*60*60*1000,
+    keys: ['key1','key2']
+}))
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 app.use((req,res, next) => {

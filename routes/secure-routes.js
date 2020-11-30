@@ -10,8 +10,9 @@ router.post(
       return res.status(404).json({errorMessage:'List is empty'})
     }
     var schedle = new Schedule(clist);
-    schedle.save();
-    res.json(clist);
+    schedle.markModified();
+    schedle.save(schedle);
+    res.json(schedle);
   }
 );
 

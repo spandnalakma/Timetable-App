@@ -53,16 +53,36 @@ passport.use(
     )
   );
 
+  passport.serializeUser((user,done)=>{
+    done(null,user.id);
+  })
+
+  passport.deserializeUser((id,done)=>{
+    UserEModel.findById(id).then((user)=>{
+      done(null,user);
+    });
+  });
+
   passport.use(new GoogleStrategy({
     clientID: "269518045972-ejdbsr1acrt9f62t30ha8k5m4e3i2abk.apps.googleusercontent.com",
     clientSecret: "rHiGrydp-IdpfZGFA-zX_Oyd",
     callbackURL: "/auth/google/callback"
   },
-  function(accessToken, refreshToken, profile, cb) {
-    //UserEModel.findOrCreate({ googleId: profile.id }, function (err, user) {
-      //return cb(err, user);
-    //});
-    return cb(null, profile);
+  function(accessToken, refreshToken, profile, done) {
+    UserEModel.findOne({ googleId: profile.id }).then((currentUser)=>{
+      if(currentUser){
+        console.log(`user is ${currentUser}`);
+        done(null,currentUser);
+      }else{
+        new UserEModel({
+          googleId:profile.id,
+          username:profile.displayName
+        }).save().then((newUser)=>{
+          console.log(`created user ${newUser}`);
+          done(null,newUser);
+        });
+      }
+    })
   }
 ));
 
