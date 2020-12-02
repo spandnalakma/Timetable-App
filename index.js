@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const fs = require('fs');
 const cookieSession = require('cookie-session');
+var cors = require('cors');
 
 
 const UserModel = require('./models/users');
@@ -31,17 +32,19 @@ app.use(cookieSession({
     maxAge: 24*60*60*1000,
     keys: ['key1','key2']
 }))
+app.use(cors());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 app.use((req,res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
     console.log(`${req.method} request for ${req.url}`);
     next();
 });
 //app.use(passport.initialize());
 
-app.use('/',routes);
+app.use('/api',routes);
 
 //app.use('/api/secure',passport.authenticate('jwt', { session: false }), secureRoute);
 app.use('/api/secure',secureRoute);

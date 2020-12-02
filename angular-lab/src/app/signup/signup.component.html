@@ -1,0 +1,25 @@
+<form [formGroup]="form">
+    <fieldset>
+        <legend>Signup</legend>
+        <div class="form-field">
+            <label>UserName:</label>
+            <input name="username" formControlName="username">
+        </div>
+        <br>
+        <div class="form-field">
+            <label>Email:</label>
+            <input name="email" formControlName="email">
+        </div>
+        <br>
+        <div class="form-field">
+            <label>Password:</label>
+            <input name="password" formControlName="password" 
+                   type="password">
+        </div>
+    </fieldset>
+    <br>
+    <div class="form-buttons">
+        <button class="button button-primary" 
+                (click)="signup()">Register</button>
+    </div>
+</form>
