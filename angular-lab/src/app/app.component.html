@@ -1,6 +1,13 @@
-<h1>TimeTable App</h1>
-<h4>This app shows descriptions of each course, able to create/update/delete course list,add reviews to each course</h4>
-<nav>
-  <a routerLink="/login">Login</a>
-</nav>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <!--  <span>HOME</span> -->
+     <span><a href="/">HOME</a></span>
+     <a mat-button routerLink="/coursesearch">Search Courses</a>
+     <span class="spacer"></span>
+     <a mat-button routerLink="/signup">Register</a>
+     <a mat-button routerLink="/login">Login</a>
+  </mat-toolbar-row>
+</mat-toolbar>
+<h2>TimeTable App</h2>
+<h5>This app lets users to view courses and their descriptions, create/update/delete course lists, add reviews to each course</h5>
 <router-outlet></router-outlet>

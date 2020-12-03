@@ -1,25 +1,26 @@
-<form [formGroup]="form">
-    <fieldset>
-        <legend>Signup</legend>
-        <div class="form-field">
-            <label>UserName:</label>
-            <input name="username" formControlName="username">
-        </div>
-        <br>
-        <div class="form-field">
-            <label>Email:</label>
-            <input name="email" formControlName="email">
-        </div>
-        <br>
-        <div class="form-field">
-            <label>Password:</label>
-            <input name="password" formControlName="password" 
-                   type="password">
-        </div>
-    </fieldset>
-    <br>
-    <div class="form-buttons">
-        <button class="button button-primary" 
-                (click)="signup()">Register</button>
-    </div>
-</form>
+<mat-toolbar>
+    <span>Registration</span>
+ </mat-toolbar>
+ <mat-card class="my-card">
+    <mat-card-content>
+         
+        <form class="my-form" [formGroup]="form">
+            <mat-form-field class="full-width">
+                <mat-label>User Name</mat-label>
+                <input  matInput  placeholder="User name"  name="username"  formControlName="username" required>
+             </mat-form-field>
+             <mat-form-field class="full-width">
+                <mat-label>Email</mat-label>
+                <input  matInput  placeholder="Email" name="email" formControlName="email">
+             </mat-form-field>
+             <mat-form-field class="full-width">
+                <mat-label>Password</mat-label>
+                <input  matInput  placeholder="Password"  name="password" formControlName = "password">
+             </mat-form-field>
+          </form>
+         
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button (click)="signup()" color="primary">REGISTER</button>
+    </mat-card-actions>
+ </mat-card>

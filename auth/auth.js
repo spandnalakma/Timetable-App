@@ -6,23 +6,25 @@ const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-passport.use(
+/* passport.use(
     'signup',
     new localStrategy(
       {
         usernameField: 'email',
-        passwordField: 'password'
+        passwordField: 'password',
+        passReqToCallback: true
       },
-      async (email, password, done) => {
+      async (req, email, password, done) => {
         try {
-          const user = await UserModel.create({ email, password });
+          const username = req.body.username;
+          const user = await UserModel.create({ email, password, username });
           return done(null, user);
         } catch (error) {
           done(error);
         }
       }
     )
-  );
+  ); */
 
   passport.use(
     'login',
@@ -88,7 +90,7 @@ passport.use(
 
 
 
-  passport.use(
+  /* passport.use(
     new JWTstrategy(
       {
         secretOrKey: 'TOP_SECRET',
@@ -101,5 +103,5 @@ passport.use(
           done(error);
         }
       }
-    )
-  );
+    ) 
+  );*/

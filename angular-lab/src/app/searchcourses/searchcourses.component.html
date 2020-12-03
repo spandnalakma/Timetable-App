@@ -1,0 +1,34 @@
+<mat-toolbar>
+    <span>Search Courses</span>
+ </mat-toolbar>
+ <mat-card class="my-card">
+    <mat-card-content>
+         
+        <form class="my-form" [formGroup]="form">
+            <mat-form-field class="full-width">
+                <mat-label>Subject Code</mat-label>
+                <input  matInput  placeholder="Subject Code"  name="subject"  formControlName="subject" oninput="this.value = this.value.toUpperCase()" required>
+             </mat-form-field>
+             <mat-form-field class="full-width">
+                <mat-label>Course Code</mat-label>
+                <input  matInput  placeholder="Course Code" name="course" formControlName="course" required>
+             </mat-form-field>
+          </form>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button (click)="search()" color="primary">Search</button>
+    </mat-card-actions>
+ </mat-card>
+
+ <div *ngIf='show'>
+     <div *ngFor='let timet of data'>
+ <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        subject : {{timet.subject}}  catalog_num: {{timet.catalog_nbr}}  class_name : {{timet.className}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <p>This is the primary content of the panel.</p>
+  </mat-expansion-panel>
+</div>
+  </div>

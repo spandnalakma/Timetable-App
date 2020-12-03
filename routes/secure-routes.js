@@ -3,6 +3,10 @@ const router = express.Router();
 const Schedule = require('../models/schedules');
 const Review = require('../models/review');
 
+router.get('/',(req,res)=>{
+  res.json("Hello World");
+})
+
 router.post(
   '/schedules/create', (req, res) => {
     let clist = req.body;

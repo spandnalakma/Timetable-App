@@ -24,6 +24,16 @@ export class SignupComponent implements OnInit {
   signup(){
     const val = this.form.value;
     console.log(val);
+
+    /* if (val.email && val.password && val.username) {
+      this.service.signup(val)
+          .subscribe(
+              () => {
+                  console.log("User is signed up");
+                  this.router.navigateByUrl('/login');
+              }
+          );
+  }  */
   }
 
 }

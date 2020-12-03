@@ -15,8 +15,12 @@ export class AppService {
   
   constructor(private http: HttpClient) { }
 
-  login(details) : Observable<any> {
-    let loginUrl = "/api/login";
-    return this.http.post<any>(this.baseUrl+loginUrl, JSON.stringify(details),this.httpsOptions)
+  test():Observable<any>{
+    return this.http.get<any>(this.baseUrl+"/api/secure");
+  }
+
+  searchCourses(subject:string,course:string):Observable<any>{
+    let searchUrl = `/api/open/courses/${subject}/${course}`;
+    return this.http.get<any>(this.baseUrl+searchUrl);
   }
 }

@@ -2,15 +2,23 @@ const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
+const User = require('../models/users');
 
 
-router.post('/signup',  
-passport.authenticate('signup',{session:false}),
-async (req,res,next) => {
-    res.json({
-       message: 'Signup successful',
-       user:req.user
-    });
+router.post('/signup',  async (req,res) => {
+    let user = await User.findOne({username:req.body.username});
+    if(user){
+      return res.status(400).json({message:"user already exists"});
+    }
+
+    user = new User(req.body);
+    user.save((err)=>{
+      if(err){
+      console.log(err);
+    }
+    const token = user.generateJWTToken();
+    res.status(200).send({auth:true,token:token});
+  });
 }
 );
 
@@ -18,7 +26,7 @@ async (req,res,next) => {
 router.post('/login',
     async (req, res, next) => {
       passport.authenticate(
-        'login',
+        'login', 
         async (err, user, info) => {
           try {
             if (err || !user) {
@@ -33,10 +41,15 @@ router.post('/login',
               async (error) => {
                 if (error) return next(error);
   
-                const body = { _id: user._id, email: user.email };
-                const token = jwt.sign({ user: body }, 'TOP_SECRET');
+                const token = user.generateJWTToken();
+
+                const responseObject = {
+                  userName: user.username,
+                  token: token,
+                  expiresIn:86400
+                };
   
-                return res.json({ token });
+                return res.json({ responseObject });
               }
             );
           } catch (error) {

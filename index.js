@@ -23,6 +23,7 @@ mongoose.connect(uri,{ useUnifiedTopology: true,  useNewUrlParser: true } ).then
   mongoose.Promise = global.Promise;
   
   require('./auth/auth');
+  const authentication = require('./auth/authmiddleware');
   const routes = require('./routes/routes');
   const secureRoute = require('./routes/secure-routes');
   const openRoute = require('./routes/open-routes');
@@ -46,8 +47,8 @@ app.use((req,res, next) => {
 
 app.use('/api',routes);
 
-//app.use('/api/secure',passport.authenticate('jwt', { session: false }), secureRoute);
-app.use('/api/secure',secureRoute);
+app.use('/api/secure',authentication.authenticateJWT, secureRoute);
+//app.use('/api/secure',secureRoute);
 app.use('/api/open',openRoute);
 app.use('/api/admin',adminRoute);
 
