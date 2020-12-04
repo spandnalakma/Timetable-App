@@ -37,4 +37,8 @@ export class AppService {
   getSubjectandCourseCodePairs():Observable<any>{
     return this.http.get<any>(this.baseUrl+"/api/secure/courses");
   }
+
+  createCourses(resObj):Observable<any>{
+    return this.http.post<any>(this.baseUrl+"/api/secure/schedules/create",resObj,this.httpsOptions);
+  }
 }

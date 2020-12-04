@@ -33,17 +33,27 @@ export class CreatecourselistComponent implements OnInit {
   }
 
   create(){
+    let vis:string;
     const val = this.form.value;
-    console.log(val);
-    console.log(this.visibility);
-    console.log(this.selectedPairs);
+    if(this.visibility == true){
+      vis = "public";
+    }
+    else{
+      vis = "private";
+    }
+    if(val.coursename){
+      let respObject = {"name":val.coursename,"decription":val.description,"schedules":this.selectedPairs,"visibility":vis}
+      console.log(respObject);
+      this.service.createCourses(respObject).subscribe((data)=>{
+        console.log(data);
+      })
+    }
   }
 
   updateCheckedList(event,index)
   {
-//console.log(event)
     if(event.checked){
-        this.selectedPairs.push(this.dataSource[index])
+        this.selectedPairs.push({"subject":this.dataSource[index].subject,"course":this.dataSource[index].catalog_nbr})
       }
 
     }
