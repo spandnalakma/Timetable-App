@@ -47,8 +47,8 @@ app.use((req,res, next) => {
 
 app.use('/api',routes);
 
-app.use('/api/secure',authentication.authenticateJWT, secureRoute);
-//app.use('/api/secure',secureRoute);
+//app.use('/api/secure',authentication.authenticateJWT, secureRoute);
+app.use('/api/secure',secureRoute);
 app.use('/api/open',openRoute);
 app.use('/api/admin',adminRoute);
 

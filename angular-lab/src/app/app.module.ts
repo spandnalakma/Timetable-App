@@ -12,6 +12,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchcoursesComponent } from './searchcourses/searchcourses.component';
 import { CourselistComponent } from './courselist/courselist.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { SearchwithkeywordsComponent } from './searchwithkeywords/searchwithkeywords.component';
+import { CreatecourselistComponent } from './createcourselist/createcourselist.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     LoginComponent,
     SignupComponent,
     SearchcoursesComponent,
-    CourselistComponent
+    CourselistComponent,
+    SearchwithkeywordsComponent,
+    CreatecourselistComponent
   ],
   imports: [
     BrowserModule,

@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
                 .subscribe(
                     (response) => {
                         this.authService.setSession(response);
-                        console.log(response.token);
                         console.log("User is logged in");
                         this.router.navigateByUrl('/courselist');
                     }

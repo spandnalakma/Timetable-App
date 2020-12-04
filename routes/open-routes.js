@@ -37,7 +37,7 @@ router.get('/courses/:text',(req,res)=>{
 })
 
 router.get('/schedules',(req,res)=>{
-      Schedules.find({},function(err,result){
+      Schedules.find({visibility:"public"},function(err,result){
           if(err){
               res.json(err)
           }else{

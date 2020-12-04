@@ -23,4 +23,18 @@ export class AppService {
     let searchUrl = `/api/open/courses/${subject}/${course}`;
     return this.http.get<any>(this.baseUrl+searchUrl);
   }
+
+  searchCourseswithKeywords(keyword:string):Observable<any>{
+    let url = `/api/open/courses/${keyword}`;
+    return this.http.get<any>(this.baseUrl+url);
+  }
+
+  getpublicCourseLists():Observable<any>{
+    let url = "/api/open/schedules";
+    return this.http.get<any>(this.baseUrl+url);
+  }
+
+  getSubjectandCourseCodePairs():Observable<any>{
+    return this.http.get<any>(this.baseUrl+"/api/secure/courses");
+  }
 }

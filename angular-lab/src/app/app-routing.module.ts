@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {SearchcoursesComponent} from './searchcourses/searchcourses.component';
 import {CourselistComponent} from './courselist/courselist.component';
 import {AuthGuard} from './auth/auth.guard';
+import {SearchwithkeywordsComponent} from './searchwithkeywords/searchwithkeywords.component';
+import {CreatecourselistComponent} from './createcourselist/createcourselist.component';
 
 
 const routes: Routes = [
@@ -14,7 +16,9 @@ const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'signup',component:SignupComponent},
   {path:'coursesearch',component:SearchcoursesComponent},
-  {path:'courselist',component:CourselistComponent, canActivate:[AuthGuard]}
+  {path:'courselist',component:CourselistComponent} , //canActivate:[AuthGuard]
+  {path:'searchwithkeywords',component:SearchwithkeywordsComponent},
+  {path:'createcourselist',component:CreatecourselistComponent}
 ];
 
 @NgModule({

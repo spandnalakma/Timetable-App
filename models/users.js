@@ -29,7 +29,7 @@ UserSchema.methods.isValidPassword = async function (password) {
 
 UserSchema.methods.generateJWTToken = function() {
     // more pay load can also be added
-    const token = jwt.sign({ userName: this.userName }, 'secret', {
+    const token = jwt.sign({ username: this.username }, 'secret', {
         expiresIn: 86400,
     });
     return token;

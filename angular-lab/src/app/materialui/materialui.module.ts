@@ -12,6 +12,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatListModule} from '@angular/material/list';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatTableModule} from '@angular/material/table';
 
 
 
@@ -29,7 +30,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatRadioModule,
     MatListModule,
     MatNativeDateModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTableModule
   ],
   exports:[MatButtonModule,
     MatToolbarModule,
@@ -42,7 +44,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatRadioModule,
     MatListModule,
     MatNativeDateModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTableModule
   ]
 })
 export class MaterialuiModule { }

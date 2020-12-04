@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Schedule = require('../models/schedules');
 const Review = require('../models/review');
+const Courses = require('../models/courses');
 
 router.get('/',(req,res)=>{
   res.json("Hello World");
@@ -46,6 +47,15 @@ router.post('/reviews/create',(req,res)=>{
    let review = new Review(rev);
    review.save();
    res.send(review);
+})
+
+router.get('/courses',(req,res)=>{
+  Courses.find({},{_id:0, subject:1, catalog_nbr:1}, (err,result) => {
+    if(err) res.send(err)
+    if(result){
+      res.json(result)
+    }
+  })
 })
 
 module.exports = router;

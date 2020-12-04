@@ -12,9 +12,8 @@ export class CourselistComponent implements OnInit {
   constructor(private appService:AppService, private router:Router) { }
 
   ngOnInit(): void {
-      this.appService.test().subscribe(
+      this.appService.getpublicCourseLists().subscribe(
         (data) => {
-            this.title = data; 
             console.log(data);
         }
     );
