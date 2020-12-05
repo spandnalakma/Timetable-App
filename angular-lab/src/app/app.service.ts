@@ -41,4 +41,24 @@ export class AppService {
   createCourses(resObj):Observable<any>{
     return this.http.post<any>(this.baseUrl+"/api/secure/schedules/create",resObj,this.httpsOptions);
   }
+
+  getUserCourseLists(username):Observable<any>{
+    let url = `/api/secure/courselists/${username}`
+    return this.http.get<any>(this.baseUrl+url);
+  }
+
+  deleteCourseList(name:string):Observable<any>{
+    let deleteUrl = `/api/secure/schedules/delete/${name}`
+    return this.http.delete<any>(this.baseUrl+deleteUrl,this.httpsOptions);
+  }
+
+  getUserCourseListyId(id:String):Observable<any>{
+    let url = `/api/secure/courselists/${id}`;
+    return this.http.get<any>(this.baseUrl+url);
+  }
+
+  updateUserCoursList(name,resObj):Observable<any>{
+    let updateUrl = `/api/secure/schedules/update/${name}`;
+    return this.http.put<any>(this.baseUrl+updateUrl,resObj,this.httpsOptions);
+  }
 }

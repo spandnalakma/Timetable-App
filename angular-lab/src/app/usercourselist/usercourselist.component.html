@@ -1,0 +1,17 @@
+<mat-toolbar>
+    <span>User Courses List</span>
+ </mat-toolbar>
+ <mat-accordion multi=true *ngIf="courselists.length > 0">
+    <mat-expansion-panel *ngFor="let element of courselists">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{element.name}}
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>{{element.description}}</p>
+        <mat-action-row>
+            <button mat-button (click)="update($event, element)">EDIT</button>
+            <button mat-button (click)="delete($event, element)">DELETE</button>
+        </mat-action-row>
+    </mat-expansion-panel>
+</mat-accordion>

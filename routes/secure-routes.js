@@ -26,23 +26,23 @@ router.put('/schedules/update/:username',(req,res)=>{
     let username = req.params.username;
 
     Schedule.findOneAndUpdate({"name":username}, req.body, {upsert: true}, function(err, doc) {
-      if (err) return res.send(404, {error: err});
-      return res.send('Succesfully saved.');
+      if (err) return res.json(err);
+      return res.json('Succesfully saved.');
       });
 })
 
 router.delete('/schedules/delete/:username',(req,res)=>{
   let username = req.params.username;
   Schedule.findOneAndDelete({ "name": username }, function (err) {
-    if(err) res.send(err);
-    res.send("Successful deletion");
+    if(err) res.json(err);
+    res.json("Successful deletion");
   });
 })
 
 router.post('/reviews/create',(req,res)=>{
    let rev = req.body;
    if(!rev){
-     return res.status(404).send("review is empty");
+     return res.status(404).json("review is empty");
    }
    let review = new Review(rev);
    review.save();
@@ -51,11 +51,31 @@ router.post('/reviews/create',(req,res)=>{
 
 router.get('/courses',(req,res)=>{
   Courses.find({},{_id:0, subject:1, catalog_nbr:1}, (err,result) => {
-    if(err) res.send(err)
+    if(err) res.json(err)
     if(result){
       res.json(result)
     }
   })
 })
 
+router.get('/courselists/:name',(req,res)=>{
+  let name = req.params.name;
+  Schedule.find({"username":name},(err,result)=>{
+    if(err) res.json(err)
+    if(result){
+      res.json(result)
+    }
+  })
+})
+
+router.get('/courselists/:id',(req,res)=>{
+  let name = req.params.id;
+  console.log(name);
+  Schedule.find({ "name":name },(err,result)=>{
+    if(err) res.json(err)
+    if(result){
+      res.json(result)
+    }
+  })
+})
 module.exports = router;

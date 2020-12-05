@@ -1,2 +1,14 @@
-<p>courselist works!</p>
-<h1>{{title}}</h1>
+<mat-accordion multi=true *ngIf="data.length > 0">
+    <mat-expansion-panel *ngFor="let element of data">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{element.name}}
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>{{element.description}}</p>
+        <mat-action-row>
+            <button mat-button>EDIT</button>
+            <button mat-button>DELETE</button>
+        </mat-action-row>
+    </mat-expansion-panel>
+</mat-accordion>

@@ -8,12 +8,13 @@ import {Router} from '@angular/router';
   styleUrls: ['./courselist.component.css']
 })
 export class CourselistComponent implements OnInit {
-  title;
+  data = []
   constructor(private appService:AppService, private router:Router) { }
 
   ngOnInit(): void {
       this.appService.getpublicCourseLists().subscribe(
         (data) => {
+            this.data = data;
             console.log(data);
         }
     );

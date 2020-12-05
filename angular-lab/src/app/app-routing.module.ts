@@ -9,6 +9,10 @@ import {CourselistComponent} from './courselist/courselist.component';
 import {AuthGuard} from './auth/auth.guard';
 import {SearchwithkeywordsComponent} from './searchwithkeywords/searchwithkeywords.component';
 import {CreatecourselistComponent} from './createcourselist/createcourselist.component';
+import {UsercourselistComponent} from './usercourselist/usercourselist.component';
+import { AuthService } from './auth/auth.service';
+import {AddreviewComponent} from './addreview/addreview.component';
+import {CoursesreviewComponent} from './coursesreview/coursesreview.component';
 
 
 const routes: Routes = [
@@ -18,7 +22,11 @@ const routes: Routes = [
   {path:'coursesearch',component:SearchcoursesComponent},
   {path:'courselist',component:CourselistComponent} , //canActivate:[AuthGuard]
   {path:'searchwithkeywords',component:SearchwithkeywordsComponent},
-  {path:'createcourselist',component:CreatecourselistComponent}
+  {path:'createcourselist',component:CreatecourselistComponent, canActivate:[AuthGuard]},
+  {path:'updatecourselist/:id',component:CreatecourselistComponent, canActivate:[AuthGuard]},
+  {path:'usercourselist', component:UsercourselistComponent, canActivate:[AuthGuard]},
+  {path:'addreview',component:AddreviewComponent, canActivate:[AuthGuard]},
+  {path:'coursesreview',component:CoursesreviewComponent, canActivate:[AuthGuard]}
 ];
 
 @NgModule({

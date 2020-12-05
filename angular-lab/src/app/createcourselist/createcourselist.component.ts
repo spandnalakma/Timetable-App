@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppService } from '../app.service';
-import { Router } from '@angular/router';
-import {MatTableDataSource} from '@angular/material/table';
+import { Router,ActivatedRoute } from '@angular/router';
+import {AuthService} from '../auth/auth.service';
 
 @Component({
   selector: 'app-createcourselist',
@@ -16,9 +16,13 @@ export class CreatecourselistComponent implements OnInit {
   dataSource=[];
   columnsToDisplay:string[] = ["subject","catalog_nbr","checked"];
   selectedPairs = [];
+  numOfCourses = 0;
+  id:string;
+  isAddMode:boolean;
+
   
   form: FormGroup;
-  constructor(private fb: FormBuilder, private service: AppService, private router: Router) {
+  constructor(private fb: FormBuilder, private service: AppService, private router: Router, private authService: AuthService, private route:ActivatedRoute) {
     this.form = this.fb.group({
       coursename: ['', Validators.required],
       description: ['', Validators.required]
@@ -26,13 +30,22 @@ export class CreatecourselistComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.params['id'];
+    this.isAddMode = !this.id;
+    
+
     this.service.getSubjectandCourseCodePairs().subscribe((data)=>{
       this.dataSource = data;
-      console.log(data);
     })
+
+    if(!this.isAddMode){
+      this.service.getUserCourseListyId(this.id).subscribe((data)=>{
+        this.form.patchValue({coursename:data[0].name, description:data[0].description})
+      })
+    }
   }
 
-  create(){
+  onSubmit(){
     let vis:string;
     const val = this.form.value;
     if(this.visibility == true){
@@ -42,20 +55,38 @@ export class CreatecourselistComponent implements OnInit {
       vis = "private";
     }
     if(val.coursename){
-      let respObject = {"name":val.coursename,"decription":val.description,"schedules":this.selectedPairs,"visibility":vis}
-      console.log(respObject);
+      let respObject = {"name":val.coursename,"description":val.description,"schedules":this.selectedPairs,"visibility":vis,"numberofcourses":this.numOfCourses, "username":this.authService.getUserName()};
+    
+    if (this.isAddMode) {
+      this.create(respObject);
+  } else {
+      this.update(respObject);
+  }
+    }
+  }
+  create(respObject){
       this.service.createCourses(respObject).subscribe((data)=>{
         console.log(data);
       })
     }
+
+  update(respObject){
+      this.service.updateUserCoursList(this.id,respObject).subscribe((data)=>{
+        console.log(data);
+      })
   }
 
   updateCheckedList(event,index)
   {
     if(event.checked){
+        this.numOfCourses += 1;
         this.selectedPairs.push({"subject":this.dataSource[index].subject,"course":this.dataSource[index].catalog_nbr})
       }
 
+    }
+
+    viewlist(){
+      this.router.navigateByUrl('/usercourselist');
     }
 
 }

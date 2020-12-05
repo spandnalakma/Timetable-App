@@ -13,7 +13,8 @@ const scheduleSchema = new Schema({
     schedules: [pairSchema],
     visibility: {type:String, default:"private"},
     updatedate: {type:Date, default:Date.now},
-    username: {type:String}
+    username: {type:String},
+    numberofcourses : {type:Number}
 });
 
 module.exports = mongoose.model('schedule',scheduleSchema);

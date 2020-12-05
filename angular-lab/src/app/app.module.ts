@@ -14,6 +14,9 @@ import { CourselistComponent } from './courselist/courselist.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { SearchwithkeywordsComponent } from './searchwithkeywords/searchwithkeywords.component';
 import { CreatecourselistComponent } from './createcourselist/createcourselist.component';
+import { UsercourselistComponent } from './usercourselist/usercourselist.component';
+import { AddreviewComponent } from './addreview/addreview.component';
+import { CoursesreviewComponent } from './coursesreview/coursesreview.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { CreatecourselistComponent } from './createcourselist/createcourselist.c
     SearchcoursesComponent,
     CourselistComponent,
     SearchwithkeywordsComponent,
-    CreatecourselistComponent
+    CreatecourselistComponent,
+    UsercourselistComponent,
+    AddreviewComponent,
+    CoursesreviewComponent
   ],
   imports: [
     BrowserModule,
