@@ -61,4 +61,9 @@ export class AppService {
     let updateUrl = `/api/secure/schedules/update/${name}`;
     return this.http.put<any>(this.baseUrl+updateUrl,resObj,this.httpsOptions);
   }
+
+  createReview(resObj):Observable<any>{
+    let url = '/api/secure/reviews/create';
+    return this.http.post<any>(this.baseUrl+url,resObj,this.httpsOptions);
+  }
 }

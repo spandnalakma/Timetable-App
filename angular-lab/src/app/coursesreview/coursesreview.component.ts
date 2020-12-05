@@ -20,8 +20,14 @@ export class CoursesreviewComponent implements OnInit {
     })
   }
 
-  addreview(i){
-     return this.router.navigateByUrl('/addreview')
+  addreview(index){
+    console.log(this.dataSource[index]);
+     return this.router.navigate(['/addreview'],{
+      state:{
+        subject: this.dataSource[index].subject,
+        course: this.dataSource[index].catalog_nbr
+      }
+     }); 
   }
 
 }

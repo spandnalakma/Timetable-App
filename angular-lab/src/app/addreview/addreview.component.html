@@ -1,1 +1,25 @@
-<p>addreview works!</p>
+<mat-toolbar>
+    <span>Add Review</span>
+ </mat-toolbar>
+ <mat-card class="my-card">
+    <mat-card-content>
+         
+        <form class="my-form" [formGroup]="form">
+            <mat-form-field class="full-width">
+                <mat-label>Subject Code</mat-label>
+                <input  matInput  placeholder="Subject Code"  name="subject"  formControlName="subject" oninput="this.value = this.value.toUpperCase()" required>
+             </mat-form-field>
+             <mat-form-field class="full-width">
+                <mat-label>Course Code</mat-label>
+                <input  matInput  placeholder="Course Code" name="course" formControlName="course" required>
+             </mat-form-field>
+             <mat-form-field class="full-width">
+                <mat-label>Review</mat-label>
+                <input  matInput  placeholder="Add review" name="review" formControlName="review" required>
+             </mat-form-field>
+          </form>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button (click)="save()" color="primary">submit</button>
+    </mat-card-actions>
+ </mat-card>

@@ -46,7 +46,7 @@ router.post('/reviews/create',(req,res)=>{
    }
    let review = new Review(rev);
    review.save();
-   res.send(review);
+   res.json(review);
 })
 
 router.get('/courses',(req,res)=>{
