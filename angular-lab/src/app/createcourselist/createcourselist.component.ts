@@ -55,7 +55,7 @@ export class CreatecourselistComponent implements OnInit {
       vis = "private";
     }
     if(val.coursename){
-      let respObject = {"name":val.coursename,"description":val.description,"schedules":this.selectedPairs,"visibility":vis,"numberofcourses":this.numOfCourses, "username":this.authService.getUserName()};
+      let respObject = {"name":val.coursename,"description":val.description,"schedules":this.selectedPairs,"visibility":vis,"numberofcourses":this.numOfCourses, "userName":this.authService.getUserName()};
     
     if (this.isAddMode) {
       this.create(respObject);

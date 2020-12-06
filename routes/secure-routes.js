@@ -15,15 +15,19 @@ router.post(
       return res.status(404).json({errorMessage:'List is empty'})
     }
     var schedle = new Schedule(clist);
-    schedle.markModified();
-    schedle.save(schedle);
+    schedle.save(function(err){
+      if(err){
+        console.log(err);
+        return;
+      }
+    });
     res.json(schedle);
   }
 );
 
-router.put('/schedules/update/:username',(req,res)=>{
+router.put('/schedules/update/:cname',(req,res)=>{
   
-    let username = req.params.username;
+    let username = req.params.cname;
 
     Schedule.findOneAndUpdate({"name":username}, req.body, {upsert: true}, function(err, doc) {
       if (err) return res.json(err);
@@ -31,8 +35,8 @@ router.put('/schedules/update/:username',(req,res)=>{
       });
 })
 
-router.delete('/schedules/delete/:username',(req,res)=>{
-  let username = req.params.username;
+router.delete('/schedules/delete/:cname',(req,res)=>{
+  let username = req.params.cname;
   Schedule.findOneAndDelete({ "name": username }, function (err) {
     if(err) res.json(err);
     res.json("Successful deletion");
@@ -58,9 +62,9 @@ router.get('/courses',(req,res)=>{
   })
 })
 
-router.get('/courselists/:name',(req,res)=>{
+router.get('/usercourselists/:name',(req,res)=>{
   let name = req.params.name;
-  Schedule.find({"username":name},(err,result)=>{
+  Schedule.find({"userName":name},(err,result)=>{
     if(err) res.json(err)
     if(result){
       res.json(result)
@@ -76,6 +80,18 @@ router.get('/courselists/:id',(req,res)=>{
     if(result){
       res.json(result)
     }
+  })
+})
+
+router.get('/openreviews/:subject/:course',(req,res)=>{
+  let subject = req.params.subject;
+  let course = req.params.course;
+  Review.find({"subject":subject,"course":course,hidden:"false"},function(err,result){
+      if(err){
+          res.json(err)
+      }else{
+          res.json(result);
+      }
   })
 })
 module.exports = router;

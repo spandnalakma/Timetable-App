@@ -46,16 +46,6 @@ router.get('/schedules',(req,res)=>{
       })
 })
 
-router.get('/reviews',(req,res)=>{
-    Reviews.find({},function(err,result){
-        if(err){
-            res.json(err)
-        }else{
-            res.json(result);
-        }
-    })
- })
-
  router.get('/schedules/timetable',(req,res)=>{
      var timetable = [];
      Schedules.find({visibility:"public"}, (err,result)=>{

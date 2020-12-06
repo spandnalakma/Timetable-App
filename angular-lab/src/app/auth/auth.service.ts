@@ -31,12 +31,14 @@ export class AuthService {
     localStorage.setItem('id_token',authResult.responseObject.token);
     localStorage.setItem("expires_at",JSON.stringify(expiresAt.valueOf()));
     localStorage.setItem("currentUser",authResult.responseObject.userName);
+    localStorage.setItem("isAdmin",authResult.responseObject.isAdmin);
   }
 
   logout(){
     localStorage.removeItem("id_token");
     localStorage.removeItem("expires_at");
     localStorage.removeItem("currentUser");
+    localStorage.removeItem("isAdmin");
   }
 
   isLoggedIn(){
@@ -56,8 +58,17 @@ export class AuthService {
     return localStorage.getItem('id_token');
  }
  getUserName():String{
-   console.log("currentUser"+localStorage.getItem('currentUser'))
    return localStorage.getItem('currentUser');
+ }
+
+ checkIfAdminUser(){
+   console.log("is admin"+localStorage.getItem('isAdmin'));
+   if(localStorage.getItem('isAdmin')=="true"){
+     return true;
+   }
+   else{
+     return false;
+   }
  }
 
 }

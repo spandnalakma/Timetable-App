@@ -8,7 +8,7 @@ router.put('/review/:subject/:course',(req,res)=>{
        let sub = req.params.subject;
        let course = req.params.course;
 
-       Review.findOneAndUpdate({"subject":sub,"course":course}, {"hidden":req.body.hidden}, {upsert: true}, function(err, doc) {
+       Review.findOneAndUpdate({"subject":sub,"course":course}, {"hidden":req.body.hidden}, {upsert: false}, function(err, doc) {
         if (err) return res.json(err);
         return res.json('Succesfully updated.');
         });

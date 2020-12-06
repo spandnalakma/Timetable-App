@@ -1,17 +1,18 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <!--  <span>HOME</span> -->
-     <span><a href="/">HOME</a></span>
+     <a href="/"><mat-icon>home</mat-icon></a>
      <a mat-button routerLink="/coursesearch">Search Courses</a>
      <a mat-button routerLink="/searchwithkeywords">Search with keywords</a>
      <a mat-button routerLink="/courselist">CoursesList</a>
-     <a mat-button routerLink="/createcourselist">Create CoursesList</a>
-     <a mat-button routerLink="/coursesreview">Course Review</a>
-     <a mat-button routerLink="/admin">Admin Page</a>
+     <a mat-button *ngIf="isUserLoggedIn" routerLink="/createcourselist">Create CoursesList</a>
+     <a mat-button *ngIf="isUserLoggedIn" routerLink="/coursesreview">Course Review</a>
+     <a mat-button *ngIf="isAdmin" routerLink="/admin">Admin Page</a>
      <span class="spacer"></span>
      <a mat-button routerLink="/signup">Register</a>
      <a mat-button *ngIf="isUserLoggedOut" routerLink="/login">Login</a>
      <button mat-button *ngIf="isUserLoggedIn" (click)="logout()">Logout</button>
+     <a *ngIf="isAdmin"><mat-icon>supervisor_account</mat-icon>SM</a>
   </mat-toolbar-row>
 </mat-toolbar>
 <h2>TimeTable App</h2>

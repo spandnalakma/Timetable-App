@@ -20,15 +20,22 @@
     </mat-card-actions>
  </mat-card>
 
- <div *ngIf='show'>
-     <div *ngFor='let timet of data'>
- <mat-expansion-panel hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        subject : {{timet.subject}}  catalog_num: {{timet.catalog_nbr}}  class_name : {{timet.className}}
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <p>This is the primary content of the panel.</p>
-  </mat-expansion-panel>
-</div>
-  </div>
+  <mat-accordion multi=true *ngIf="data.length > 0">
+    <mat-expansion-panel *ngFor="let element of data">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-label><i>Subject Code</i></mat-label>: {{element.subject}} &nbsp;&nbsp;&nbsp;
+              <mat-label><i>Course Code</i></mat-label>: {{element.catalog_nbr}} &nbsp;&nbsp;&nbsp;
+              <mat-label><i>Class Name</i></mat-label>: {{element.className}} &nbsp;&nbsp;&nbsp;
+              <mat-label><i>Class Section</i></mat-label>: {{element.course_info[0].class_section}} &nbsp;&nbsp;&nbsp;
+              <mat-label><i>Component</i></mat-label>: {{element.course_info[0].ssr_component}} &nbsp;&nbsp;&nbsp;
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>
+          <table>
+            <tr><th>Class Number</th></tr>
+            <tr><td>{{element.course_info[0].class_nbr}}</td></tr>
+          </table>
+        </p>
+    </mat-expansion-panel>
+</mat-accordion>

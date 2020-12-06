@@ -12,6 +12,8 @@ import {AuthService} from '../auth/auth.service';
 })
 export class AddreviewComponent implements OnInit {
   state: any;
+  openReviews = [];
+  columnsToDisplay = ["username","subject","course","comments"]
   form: FormGroup;
   constructor(private fb: FormBuilder,private router:Router, private service:AppService,private authService:AuthService) {
     this.form = this.fb.group({
@@ -23,13 +25,24 @@ export class AddreviewComponent implements OnInit {
     if(this.router.getCurrentNavigation().extras.state){
       this.state = this.router.getCurrentNavigation().extras.state;
       if(this.state){
-        console.log(this.state);
-        this.form.patchValue({subject:this.state.subject, course:this.state.course})
+        this.form.patchValue({subject:this.state.subject, course:this.state.course});
+        this.form.controls["subject"].disable();
+        this.form.controls["course"].disable();
       }
     } 
+
+    this.getOpenReviews(this.state.subject,this.state.course);
    }
 
   ngOnInit(): void {
+    
+  }
+
+  getOpenReviews(subject,course){
+    this.service.getOpenReview(subject,course).subscribe((data)=>{
+      this.openReviews = data;
+      console.log(data)
+    })
   }
 
   save(){
@@ -40,6 +53,8 @@ export class AddreviewComponent implements OnInit {
       console.log(data);
     })
   }
+  this.getOpenReviews(val.subject,val.course);
   }
+
 
 }

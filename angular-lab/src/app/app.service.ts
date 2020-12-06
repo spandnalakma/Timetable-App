@@ -43,7 +43,7 @@ export class AppService {
   }
 
   getUserCourseLists(username):Observable<any>{
-    let url = `/api/secure/courselists/${username}`
+    let url = `/api/secure/usercourselists/${username}`
     return this.http.get<any>(this.baseUrl+url);
   }
 
@@ -67,6 +67,11 @@ export class AppService {
     return this.http.post<any>(this.baseUrl+url,resObj,this.httpsOptions);
   }
 
+  getOpenReview(subject,course):Observable<any>{
+    let url = `/api/secure/openreviews/${subject}/${course}`;
+    return this.http.get<any>(this.baseUrl+url);
+  }
+
   getUsers():Observable<any>{
     return this.http.get<any>(this.baseUrl+"/api/admin/userslist");
   }
@@ -79,5 +84,10 @@ export class AppService {
   getReviews():Observable<any>{
     let url = '/api/admin/reviews';
     return this.http.get<any>(this.baseUrl+url);
+  }
+
+  updateReviewStatus(subject,course,resObject) : Observable<any>{
+    let url = `/api/admin/review/${subject}/${course}`;
+    return this.http.put<any>(this.baseUrl+url,resObject,this.httpsOptions);
   }
 }

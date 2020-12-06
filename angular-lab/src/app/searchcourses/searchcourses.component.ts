@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 })
 export class SearchcoursesComponent implements OnInit {
   data = [];
-  show = false;
   form: FormGroup;
   constructor(private fb: FormBuilder, private service: AppService, private router: Router) {
     this.form = this.fb.group({
@@ -29,7 +28,6 @@ export class SearchcoursesComponent implements OnInit {
           .subscribe(
               (data) => {
                   this.data = data;
-                  this.show=true;
                   console.log(data);
               }
           );

@@ -8,13 +8,17 @@ const pairSchema = new Schema({
 })
 
 const scheduleSchema = new Schema({
-    name : {type:String,required:true,unique:true},
+    name : {type:String,required:true},
     description:{type:String},
     schedules: [pairSchema],
     visibility: {type:String, default:"private"},
     updatedate: {type:Date, default:Date.now},
-    username: {type:String},
+    userName: {type:String},
     numberofcourses : {type:Number}
 });
 
-module.exports = mongoose.model('schedule',scheduleSchema);
+model = mongoose.model('schedule',scheduleSchema);
+module.exports =model
+
+
+//model.collection.drop()

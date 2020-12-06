@@ -45,6 +45,7 @@ router.post('/login',
 
                 const responseObject = {
                   userName: user.username,
+                  isAdmin:user.isAdmin,
                   token: token,
                   expiresIn:86400
                 };

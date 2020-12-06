@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {AuthService} from './auth/auth.service';
+import {Router} from '@angular/router';
+import { Route } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +10,7 @@ import {AuthService} from './auth/auth.service';
 })
 export class AppComponent {
   title = 'angular-lab';
-  constructor(private auth:AuthService){};
+  constructor(private auth:AuthService, private router:Router){};
 
   get isUserLoggedIn(): boolean{
     return this.auth.isLoggedIn();
@@ -18,8 +20,14 @@ export class AppComponent {
     return this.auth.isLoggedOut();
   }
 
+  get isAdmin():boolean{
+    console.log(this.auth.checkIfAdminUser());
+    return this.auth.checkIfAdminUser();
+  }
+
   logout():void{
     console.log("logout");
     this.auth.logout();
+    this.router.navigateByUrl("/");
   }
 }

@@ -1,3 +1,7 @@
+<mat-toolbar>
+  <span>Add Reviews to Courses</span>
+</mat-toolbar>
+<div style="padding: 32px">
 <div class="table"> 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">  
         <ng-container matColumnDef="subject">
@@ -21,3 +25,4 @@
         <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
       </table>
   </div>
+</div>

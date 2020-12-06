@@ -10,24 +10,23 @@ export class AdminComponent implements OnInit {
   dataSource=[];
   reviewsList = []
   columnsToDisplay:string[] = ["username","email","deactivated","isAdmin","update"];
-  displayColumns:string[] = ["username","course","subject","comments","hide","update"]
+  displayColumns:string[] = ["username","course","subject","comments","hidden","update"]
   constructor(private service:AppService) { }
 
   ngOnInit(): void {
     this.getUsers();
+    this.getReviews();
   }
 
   getUsers(){
     this.service.getUsers().subscribe((data)=>{
       this.dataSource=data;
-      console.log(data);
     })
   }
 
   getReviews(){
     this.service.getReviews().subscribe((data)=>{
       this.reviewsList = data;
-      console.log(data);
     })
   }
 
@@ -40,5 +39,15 @@ export class AdminComponent implements OnInit {
     })
     this.getUsers();
   }
+
+  saveReviewStatus(index){
+    let resObject;
+    console.log(this.reviewsList[index].hidden, this.reviewsList[index].subject,this.reviewsList[index].course);
+    resObject = {"hidden":this.reviewsList[index].hidden};
+    this.service.updateReviewStatus(this.reviewsList[index].subject,this.reviewsList[index].course,resObject).subscribe((data)=>{
+      console.log(data);
+    })
+    this.getReviews();
+  } 
 
 }

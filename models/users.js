@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const UserSchema = new Schema({
     email: { type: String, required: true, unique:true},
     password: { type: String, required: true },
-    username: { type: String },
+    username: { type: String, unique:true},
     deactivated: { type: Boolean, default: false },
     isAdmin: { type: Boolean, default: false }
 });
@@ -29,7 +29,7 @@ UserSchema.methods.isValidPassword = async function (password) {
 
 UserSchema.methods.generateJWTToken = function() {
     // more pay load can also be added
-    const token = jwt.sign({ username: this.username }, 'secret', {
+    const token = jwt.sign({ username: this.username, admin: this.isAdmin }, 'secret', {
         expiresIn: 86400,
     });
     return token;

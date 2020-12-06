@@ -9,8 +9,11 @@ const cookieSession = require('cookie-session');
 var cors = require('cors');
 
 
+
+
 const UserModel = require('./models/users');
 const Courses = require('./models/courses');
+
 
 var uri = 'mongodb://localhost:27017/timetable';
 mongoose.connect(uri,{ useUnifiedTopology: true,  useNewUrlParser: true } ).then(() => {
@@ -50,7 +53,7 @@ app.use('/api',routes);
 app.use('/api/secure',authentication.authenticateJWT, secureRoute);
 //app.use('/api/secure',secureRoute);
 app.use('/api/open',openRoute);
-app.use('/api/admin',adminRoute);
+app.use('/api/admin',authentication.authenticateJWT,adminRoute);
 
 Courses.count(function(err, result){
     if(err) console.log(err);
