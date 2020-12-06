@@ -13,6 +13,7 @@ import {UsercourselistComponent} from './usercourselist/usercourselist.component
 import { AuthService } from './auth/auth.service';
 import {AddreviewComponent} from './addreview/addreview.component';
 import {CoursesreviewComponent} from './coursesreview/coursesreview.component';
+import {AdminComponent} from './admin/admin.component';
 
 
 const routes: Routes = [
@@ -26,7 +27,8 @@ const routes: Routes = [
   {path:'updatecourselist/:id',component:CreatecourselistComponent, canActivate:[AuthGuard]},
   {path:'usercourselist', component:UsercourselistComponent, canActivate:[AuthGuard]},
   {path:'addreview',component:AddreviewComponent, canActivate:[AuthGuard]},
-  {path:'coursesreview',component:CoursesreviewComponent, canActivate:[AuthGuard]}
+  {path:'coursesreview',component:CoursesreviewComponent, canActivate:[AuthGuard]},
+  {path:'admin',component:AdminComponent, canActivate:[AuthGuard]}
 ];
 
 @NgModule({

@@ -9,20 +9,34 @@ router.put('/review/:subject/:course',(req,res)=>{
        let course = req.params.course;
 
        Review.findOneAndUpdate({"subject":sub,"course":course}, {"hidden":req.body.hidden}, {upsert: true}, function(err, doc) {
-        if (err) return res.send(404, {error: err});
-        return res.send('Succesfully updated.');
+        if (err) return res.json(err);
+        return res.json('Succesfully updated.');
         });
   
 });
 
-router.put('/deactivate/:username',(req,res)=>{
+router.put('/status/:username',(req,res)=>{
    
       let user = req.params.username;
-
-      User.findOneAndUpdate({"username":user}, {"deactivated":req.body.deactivated}, {upsert: true}, function(err, doc) {
-        if (err) return res.send(404, {error: err});
-        return res.send('Succesfully updated.');
+      console.log(`req.body.deactivated`);
+      User.findOneAndUpdate({"username":user}, {"deactivated":req.body.deactivated, "isAdmin":req.body.isAdmin}, {upsert: true}, function(err, doc) {
+        if (err) return res.json(err);
+        return res.json('Succesfully updated.');
         });
+})
+
+router.get('/userslist',(req,res)=>{
+      User.find({},(err,result)=>{
+              if(err) return res.json(err)
+              if(result) res.json(result);
+      })  
+})
+
+router.get('/reviews',(req,res)=>{
+        Review.find({},(err,result)=>{
+                if(err) return res.json(err)
+                if(result) res.json(result);
+        })
 })
 
 module.exports = router;

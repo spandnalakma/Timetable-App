@@ -17,6 +17,7 @@ import { CreatecourselistComponent } from './createcourselist/createcourselist.c
 import { UsercourselistComponent } from './usercourselist/usercourselist.component';
 import { AddreviewComponent } from './addreview/addreview.component';
 import { CoursesreviewComponent } from './coursesreview/coursesreview.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { CoursesreviewComponent } from './coursesreview/coursesreview.component'
     CreatecourselistComponent,
     UsercourselistComponent,
     AddreviewComponent,
-    CoursesreviewComponent
+    CoursesreviewComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
