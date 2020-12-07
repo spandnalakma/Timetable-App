@@ -36,8 +36,9 @@ router.get('/courses/:text',(req,res)=>{
     })
 })
 
-router.get('/schedules',(req,res)=>{
-      Schedules.find({visibility:"public"},function(err,result){
+router.get('/schedules/:username',(req,res)=>{
+    let username = req.params.username;
+      Schedules.find({"visibility":"public","userName":{$ne:username}}).sort([['updatedate',-1]]).exec(function(err,result){
           if(err){
               res.json(err)
           }else{
@@ -46,27 +47,6 @@ router.get('/schedules',(req,res)=>{
       })
 })
 
- router.get('/schedules/timetable',(req,res)=>{
-     var timetable = [];
-     Schedules.find({visibility:"public"}, (err,result)=>{
-         if(err) return res.send(err);
-         if(result){
-         result.forEach(record => {
-             if(record.schedules){
-                 record.schedules.forEach(c =>{
-                     Courses.findOne({"subject":c.subject,"catalog_nbr":{$regex:c.course,$options:'i'}},(err,res)=>{
-                         if(err) return res.send(err);
-                         if(res){
-                            timetable.push(res);
-                            console.log(res);
-                         }
-                     }) 
-                 })
-             }
-        });
-        res.json(timetable);
-    }
-     })
- })
+ 
 
 module.exports = router;

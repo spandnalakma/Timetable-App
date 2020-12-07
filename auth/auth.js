@@ -36,9 +36,15 @@ var GoogleStrategy = require('passport-google-oauth20').Strategy;
       async (email, password, done) => {
         try {
           const user = await UserModel.findOne({ email });
+
+          console.log(user);
   
           if (!user) {
             return done(null, false, { message: 'User not found' });
+          }
+
+          if(user.deactivated){
+            return done(null, false, {message: 'Account is disabled. Please contact admin to resolve'})
           }
   
           const validate = await user.isValidPassword(password);
@@ -46,6 +52,7 @@ var GoogleStrategy = require('passport-google-oauth20').Strategy;
           if (!validate) {
             return done(null, false, { message: 'Wrong Password' });
           }
+          
   
           return done(null, user, { message: 'Logged in Successfully' });
         } catch (error) {

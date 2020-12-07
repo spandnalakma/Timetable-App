@@ -62,7 +62,6 @@ export class AuthService {
  }
 
  checkIfAdminUser(){
-   console.log("is admin"+localStorage.getItem('isAdmin'));
    if(localStorage.getItem('isAdmin')=="true"){
      return true;
    }

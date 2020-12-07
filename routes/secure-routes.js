@@ -15,11 +15,12 @@ router.post(
       return res.status(404).json({errorMessage:'List is empty'})
     }
     var schedle = new Schedule(clist);
-    schedle.save(function(err){
+    schedle.save(function(err,result){
       if(err){
         console.log(err);
         return;
       }
+      console.log(result)
     });
     res.json(schedle);
   }

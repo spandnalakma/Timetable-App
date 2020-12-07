@@ -6,8 +6,8 @@
          
         <form class="my-form" [formGroup]="form">
             <mat-form-field class="full-width">
-                <mat-label>Subject Code or Course Code</mat-label>
-                <input  matInput  placeholder="Subject Code"  name="keyword"  formControlName="keyword" required>
+                <mat-label>Class name or Course Code</mat-label>
+                <input  matInput  placeholder="Class Name or Course Code"  name="keyword"  formControlName="keyword" required>
              </mat-form-field>
           </form>
     </mat-card-content>
@@ -15,3 +15,40 @@
         <button mat-raised-button (click)="search()" color="primary">Search</button>
     </mat-card-actions>
  </mat-card>
+
+
+
+ <mat-accordion multi=true *ngIf="data.length > 0">
+    <mat-expansion-panel *ngFor="let element of data">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-label><b><i>Subject Code</i></b></mat-label>: {{element.subject}} &nbsp;&nbsp;&nbsp;
+              <mat-label><b><i>Course Code</i></b></mat-label>: {{element.catalog_nbr}} &nbsp;&nbsp;&nbsp;
+              <mat-label><b><i>Class Name</i></b></mat-label>: {{element.className}} &nbsp;&nbsp;&nbsp;
+              <mat-label><b><i>Class Section</i></b></mat-label>: {{element.course_info[0].class_section}} &nbsp;&nbsp;&nbsp;
+              <mat-label><b><i>Component</i></b></mat-label>: {{element.course_info[0].ssr_component}} &nbsp;&nbsp;&nbsp;
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+          <table>
+            <tr><th>Class Number</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Campus</th>
+              <th>Facility ID</th>
+              <th>Enrollment Status</th>
+              <th>Days</th>
+              <th>Description</th>
+            </tr>
+            <tr><td>{{element.course_info[0].class_nbr}}</td>
+            <td>{{element.course_info[0].start_time}}</td>
+            <td>{{element.course_info[0].end_time}}</td>
+            <td>{{element.course_info[0].campus}}</td>
+            <td>{{element.course_info[0].facility_ID}}</td>
+            <td>{{element.course_info[0].enrl_stat}}</td>
+            <td>{{element.course_info[0].days}}</td>
+            <td>{{element.course_info[0].descr}}</td>
+            </tr>
+          </table>
+        
+    </mat-expansion-panel>
+</mat-accordion>

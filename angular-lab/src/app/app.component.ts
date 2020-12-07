@@ -10,6 +10,7 @@ import { Route } from '@angular/compiler/src/core';
 })
 export class AppComponent {
   title = 'angular-lab';
+  username:String;
   constructor(private auth:AuthService, private router:Router){};
 
   get isUserLoggedIn(): boolean{
@@ -21,8 +22,11 @@ export class AppComponent {
   }
 
   get isAdmin():boolean{
-    console.log(this.auth.checkIfAdminUser());
     return this.auth.checkIfAdminUser();
+  }
+
+  getusername(){
+    this.username = this.auth.getUserName();
   }
 
   logout():void{

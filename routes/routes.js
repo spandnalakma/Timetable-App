@@ -30,16 +30,17 @@ router.post('/login',
         async (err, user, info) => {
           try {
             if (err || !user) {
-              const error = new Error('An error occurred.');
-  
-              return next(error);
+              //const error = new Error('An error occurred.');
+              console.log(err);
+               res.json(err);
+              //return next(error);
             }
   
             req.login(
               user,
               { session: false },
               async (error) => {
-                if (error) return next(error);
+                if (error) return console.log(error);
   
                 const token = user.generateJWTToken();
 

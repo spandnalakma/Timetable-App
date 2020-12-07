@@ -24,18 +24,33 @@
     <mat-expansion-panel *ngFor="let element of data">
         <mat-expansion-panel-header>
             <mat-panel-title>
-              <mat-label><i>Subject Code</i></mat-label>: {{element.subject}} &nbsp;&nbsp;&nbsp;
-              <mat-label><i>Course Code</i></mat-label>: {{element.catalog_nbr}} &nbsp;&nbsp;&nbsp;
-              <mat-label><i>Class Name</i></mat-label>: {{element.className}} &nbsp;&nbsp;&nbsp;
-              <mat-label><i>Class Section</i></mat-label>: {{element.course_info[0].class_section}} &nbsp;&nbsp;&nbsp;
-              <mat-label><i>Component</i></mat-label>: {{element.course_info[0].ssr_component}} &nbsp;&nbsp;&nbsp;
+              <mat-label><b><i>Subject Code</i></b></mat-label>: {{element.subject}} &nbsp;&nbsp;&nbsp;
+              <mat-label><b><i>Course Code</i></b></mat-label>: {{element.catalog_nbr}} &nbsp;&nbsp;&nbsp;
+              <mat-label><b><i>Class Name</i></b></mat-label>: {{element.className}} &nbsp;&nbsp;&nbsp;
+              <mat-label><b><i>Class Section</i></b></mat-label>: {{element.course_info[0].class_section}} &nbsp;&nbsp;&nbsp;
+              <mat-label><b><i>Component</i></b></mat-label>: {{element.course_info[0].ssr_component}} &nbsp;&nbsp;&nbsp;
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <p>
           <table>
-            <tr><th>Class Number</th></tr>
-            <tr><td>{{element.course_info[0].class_nbr}}</td></tr>
+            <tr><th>Class Number</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Campus</th>
+              <th>Facility ID</th>
+              <th>Enrollment Status</th>
+              <th>Days</th>
+              <th>Description</th>
+            </tr>
+            <tr><td>{{element.course_info[0].class_nbr}}</td>
+            <td>{{element.course_info[0].start_time}}</td>
+            <td>{{element.course_info[0].end_time}}</td>
+            <td>{{element.course_info[0].campus}}</td>
+            <td>{{element.course_info[0].facility_ID}}</td>
+            <td>{{element.course_info[0].enrl_stat}}</td>
+            <td>{{element.course_info[0].days}}</td>
+            <td>{{element.course_info[0].descr}}</td>
+            </tr>
           </table>
-        </p>
+        
     </mat-expansion-panel>
 </mat-accordion>

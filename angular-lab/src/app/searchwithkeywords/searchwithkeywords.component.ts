@@ -15,7 +15,7 @@ export class SearchwithkeywordsComponent implements OnInit {
   form: FormGroup;
   constructor(private fb: FormBuilder, private service: AppService, private router: Router) {
     this.form = this.fb.group({
-      keyword: ['', Validators.required,Validators.minLength(4)]
+      keyword: ['', [Validators.required,Validators.minLength(4)]]
     });
   }
 

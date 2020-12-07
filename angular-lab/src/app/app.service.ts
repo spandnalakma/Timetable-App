@@ -29,8 +29,8 @@ export class AppService {
     return this.http.get<any>(this.baseUrl+url);
   }
 
-  getpublicCourseLists():Observable<any>{
-    let url = "/api/open/schedules";
+  getpublicCourseLists(username):Observable<any>{
+    let url = `/api/open/schedules/${username}`;
     return this.http.get<any>(this.baseUrl+url);
   }
 
