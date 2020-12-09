@@ -13,6 +13,8 @@ import {MatListModule} from '@angular/material/list';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTableModule} from '@angular/material/table';
+import {MatSelectModule} from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -31,7 +33,9 @@ import {MatTableModule} from '@angular/material/table';
     MatListModule,
     MatNativeDateModule,
     MatExpansionModule,
-    MatTableModule
+    MatTableModule,
+    MatSelectModule,
+    MatDialogModule
   ],
   exports:[MatButtonModule,
     MatToolbarModule,
@@ -45,7 +49,9 @@ import {MatTableModule} from '@angular/material/table';
     MatListModule,
     MatNativeDateModule,
     MatExpansionModule,
-    MatTableModule
+    MatTableModule,
+    MatSelectModule,
+    MatDialogModule
   ]
 })
 export class MaterialuiModule { }

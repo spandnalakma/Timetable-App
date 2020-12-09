@@ -40,7 +40,7 @@ router.post('/login',
               user,
               { session: false },
               async (error) => {
-                if (error) return console.log(error);
+                if (error) return next(error);
   
                 const token = user.generateJWTToken();
 

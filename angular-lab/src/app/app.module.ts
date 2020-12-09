@@ -18,6 +18,7 @@ import { UsercourselistComponent } from './usercourselist/usercourselist.compone
 import { AddreviewComponent } from './addreview/addreview.component';
 import { CoursesreviewComponent } from './coursesreview/coursesreview.component';
 import { AdminComponent } from './admin/admin.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AdminComponent } from './admin/admin.component';
     UsercourselistComponent,
     AddreviewComponent,
     CoursesreviewComponent,
-    AdminComponent
+    AdminComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,

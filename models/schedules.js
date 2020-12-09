@@ -5,6 +5,7 @@ const pairSchema = new Schema({
     subject : {type:String, required:true},
     course : {type:String, required:true},
     year: {type:Number},
+    coursedetails:[]
 })
 
 const scheduleSchema = new Schema({

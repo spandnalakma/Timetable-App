@@ -20,41 +20,6 @@
           </form>
     </mat-card-content>
     <mat-card-actions>
-        <button mat-raised-button (click)="save()" color="primary">submit</button>
+        <button mat-raised-button (click)="openDialog()" color="primary">submit</button>
     </mat-card-actions>
  </mat-card>
-
-
-
-<mat-toolbar>
-   <span>User Access</span>
-</mat-toolbar>
-<div style="padding: 32px">
- <div class="example-container mat-elevation-z8"> 
-   <table mat-table [dataSource]="openReviews">  
-       <ng-container matColumnDef="username">
-         <th mat-header-cell *matHeaderCellDef> User Name </th>
-         <td mat-cell *matCellDef="let element"> {{element.username}} </td>
-       </ng-container>
-     
-       <ng-container matColumnDef="subject">
-         <th mat-header-cell *matHeaderCellDef> Course Code </th>
-         <td mat-cell *matCellDef="let element"> {{element.subject}} </td>
-       </ng-container>
-       
-
-       <ng-container matColumnDef="course">
-         <th mat-header-cell *matHeaderCellDef> Course Code </th>
-         <td mat-cell *matCellDef="let element"> {{element.course}} </td>
-       </ng-container>
-       
-       <ng-container matColumnDef="comments">
-         <th mat-header-cell *matHeaderCellDef> Course Code </th>
-         <td mat-cell *matCellDef="let element"> {{element.comments}} </td>
-       </ng-container>
-     
-       <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-       <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
-     </table>
- </div>
-</div>

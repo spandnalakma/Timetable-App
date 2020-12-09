@@ -47,6 +47,36 @@ router.get('/schedules/:username',(req,res)=>{
       })
 })
 
+//move to secure route
+router.get('/userschedules/:coursename',async(req,res)=>{
+    let coursename = req.params.coursename;
+    let courseLists = await Schedules.find({"name":coursename})
+
+    const returnedCourseLists = [];
+ 
+    for (let courseList of courseLists) {
+      let courses = courseList.get('schedules');
+ 
+      for (let courseRef of courses) {
+        let catalog_nbr = courseRef.course;
+        let subject = courseRef.subject;
+        console.log(catalog_nbr,subject);
+ 
+        let course = await Courses.findOne({
+          catalog_nbr: catalog_nbr,
+          subject: subject,
+        });
+        console.log(course);
+        courseRef.coursedetails = course;
+        //console.log(courseRef);
+      }
+ 
+      returnedCourseLists.push(courseList);
+    }
+ 
+    return res.send(returnedCourseLists);
+})
+
  
 
 module.exports = router;

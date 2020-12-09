@@ -7,12 +7,12 @@
      <a mat-button routerLink="/courselist">CoursesList</a>
      <a mat-button *ngIf="isUserLoggedIn" routerLink="/createcourselist">Create CoursesList</a>
      <a mat-button *ngIf="isUserLoggedIn" routerLink="/coursesreview">Course Review</a>
-     <a mat-button *ngIf="isAdmin" routerLink="/admin">Admin Page</a>
+     <a mat-button *ngIf="isAdmin && isUserLoggedIn" routerLink="/admin">Admin Page</a>
      <span class="spacer"></span>
      <a mat-button *ngIf="isUserLoggedOut" routerLink="/signup">Register</a>
      <a mat-button *ngIf="isUserLoggedOut" routerLink="/login">Login</a>
      <button mat-button *ngIf="isUserLoggedIn" (click)="logout()">Logout</button>
-     <a *ngIf="isAdmin"><mat-icon>supervisor_account</mat-icon>SM</a>
+     <a *ngIf="isAdmin && isUserLoggedIn"><mat-icon>supervisor_account</mat-icon>SM</a>
   </mat-toolbar-row>
 </mat-toolbar>
 <h2>TimeTable App</h2>

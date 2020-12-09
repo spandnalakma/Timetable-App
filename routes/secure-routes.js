@@ -20,7 +20,7 @@ router.post(
         console.log(err);
         return;
       }
-      console.log(result)
+      
     });
     res.json(schedle);
   }
@@ -71,6 +71,14 @@ router.get('/usercourselists/:name',(req,res)=>{
       res.json(result)
     }
   })
+})
+
+router.get('/usercount/:username',(req,res)=>{
+  let name =  req.params.username;
+  Schedule.countDocuments({"userName":name}, function(err, c) {
+    if(err) res.json(err)
+      res.json(c)
+});
 })
 
 router.get('/courselists/:id',(req,res)=>{

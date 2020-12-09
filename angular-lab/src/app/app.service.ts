@@ -62,6 +62,11 @@ export class AppService {
     return this.http.put<any>(this.baseUrl+updateUrl,resObj,this.httpsOptions);
   }
 
+  getUserCreateCount(name):Observable<any>{
+    let url = `/api/secure/usercount/${name}`;
+    return this.http.get<any>(this.baseUrl+url);
+  }
+
   createReview(resObj):Observable<any>{
     let url = '/api/secure/reviews/create';
     return this.http.post<any>(this.baseUrl+url,resObj,this.httpsOptions);
