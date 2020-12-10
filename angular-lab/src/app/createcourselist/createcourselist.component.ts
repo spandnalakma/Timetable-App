@@ -68,7 +68,6 @@ export class CreatecourselistComponent implements OnInit {
       let count = 0;
       this.service.getUserCreateCount(this.authService.getUserName()).subscribe((data)=>{
         count = parseInt(data);
-        console.log(count);
       })
       if(count<=20){
       this.service.createCourses(respObject).subscribe((data)=>{
@@ -87,7 +86,6 @@ export class CreatecourselistComponent implements OnInit {
   {
     if(event.checked){
         this.numOfCourses += 1;
-        console.log(this.dataSource[index]);
         if(this.dataSource[index].year){
         this.selectedPairs.push({"subject":this.dataSource[index].subject,"course":this.dataSource[index].catalog_nbr,"year":this.dataSource[index].year})
       }else{

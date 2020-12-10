@@ -4,8 +4,7 @@ const {Schema} = mongoose;
 const pairSchema = new Schema({
     subject : {type:String, required:true},
     course : {type:String, required:true},
-    year: {type:Number},
-    coursedetails:[]
+    year: {type:Number}
 })
 
 const scheduleSchema = new Schema({

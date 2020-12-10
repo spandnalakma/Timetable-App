@@ -7,7 +7,7 @@
         <form class="my-form" [formGroup]="form">
             <mat-form-field class="full-width">
                 <mat-label>Class name or Course Code</mat-label>
-                <input  matInput  placeholder="Class Name or Course Code"  name="keyword"  formControlName="keyword" required>
+                <input  matInput  placeholder="Class Name or Course Code"  name="keyword"  formControlName="keyword" oninput="this.value = this.value.toUpperCase()" required>
              </mat-form-field>
           </form>
     </mat-card-content>
@@ -17,18 +17,41 @@
  </mat-card>
 
 
+<div *ngIf="data.length > 0">
+ <table mat-table
+       [dataSource]="data" multiTemplateDataRows
+       class="mat-elevation-z8">
+       <ng-container matColumnDef="subject">
+        <th mat-header-cell *matHeaderCellDef> Subject </th>
+        <td mat-cell *matCellDef="let element"> {{element.subject}} </td>
+      </ng-container>
 
- <mat-accordion multi=true *ngIf="data.length > 0">
-    <mat-expansion-panel *ngFor="let element of data">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-              <mat-label><b><i>Subject Code</i></b></mat-label>: {{element.subject}} &nbsp;&nbsp;&nbsp;
-              <mat-label><b><i>Course Code</i></b></mat-label>: {{element.catalog_nbr}} &nbsp;&nbsp;&nbsp;
-              <mat-label><b><i>Class Name</i></b></mat-label>: {{element.className}} &nbsp;&nbsp;&nbsp;
-              <mat-label><b><i>Class Section</i></b></mat-label>: {{element.course_info[0].class_section}} &nbsp;&nbsp;&nbsp;
-              <mat-label><b><i>Component</i></b></mat-label>: {{element.course_info[0].ssr_component}} &nbsp;&nbsp;&nbsp;
-            </mat-panel-title>
-        </mat-expansion-panel-header>
+      <ng-container matColumnDef="catalog_nbr">
+        <th mat-header-cell *matHeaderCellDef> Course Code </th>
+        <td mat-cell *matCellDef="let element"> {{element.catalog_nbr}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="className">
+        <th mat-header-cell *matHeaderCellDef> Class Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.className}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="class_section">
+        <th mat-header-cell *matHeaderCellDef> Class Section </th>
+        <td mat-cell *matCellDef="let element"> {{element.course_info[0].class_section}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="ssr_component">
+        <th mat-header-cell *matHeaderCellDef> Component </th>
+        <td mat-cell *matCellDef="let element"> {{element.course_info[0].ssr_component}} </td>
+      </ng-container>
+
+  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+      <div class="example-element-detail"
+           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+        <div>
           <table>
             <tr><th>Class Number</th>
               <th>Start Time</th>
@@ -49,6 +72,31 @@
             <td>{{element.course_info[0].descr}}</td>
             </tr>
           </table>
-        
-    </mat-expansion-panel>
-</mat-accordion>
+        </div>
+        <!-- <div>
+          {{element.catalog_description}}
+        </div> -->
+        <table>
+          <tr><th>Creater</th>
+            <th>Create Time</th>
+            <th>Review</th>
+          </tr>
+          <tr *ngFor='let review of element.review'>
+            <td>{{review.username}}</td>
+            <td>{{review.updatedate}}</td>
+            <td>{{review.comments}}</td>
+            </tr>
+        </table>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+      class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+</table>
+</div>

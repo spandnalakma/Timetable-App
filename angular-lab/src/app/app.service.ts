@@ -95,4 +95,9 @@ export class AppService {
     let url = `/api/admin/review/${subject}/${course}`;
     return this.http.put<any>(this.baseUrl+url,resObject,this.httpsOptions);
   }
+
+  getUserTimetableForSchedules(coursename): Observable<any>{
+    let url = `/api/open/userschedules/${coursename}`;
+    return this.http.get<any>(this.baseUrl+url);
+  }
 }

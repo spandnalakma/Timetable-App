@@ -1,49 +1,51 @@
-<mat-toolbar>
-    <span>Course Lists</span>
- </mat-toolbar>
-<mat-accordion multi=true *ngIf="data.length > 0">
-    <mat-expansion-panel *ngFor="let element of data.slice(0,10)">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <mat-label><b><i>Name</i></b></mat-label>: {{element.name}} &nbsp;&nbsp;&nbsp;
-              <mat-label><b><i>Creater</i></b></mat-label>: {{element.userName}} &nbsp;&nbsp;&nbsp;
-              <mat-label><b><i>Number of Courses</i></b></mat-label>: {{element.numberofcourses}} &nbsp;&nbsp;&nbsp;
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-expansion-panel *ngFor="let item of element.schedules">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <mat-label><b><i>Subject Code</i></b></mat-label>: {{item.subject}} &nbsp;&nbsp;&nbsp;
-                  <mat-label><b><i>Course Code</i></b></mat-label>: {{item.course}} &nbsp;&nbsp;&nbsp;
-                  <button mat-raised-button (click)="search(item)" color="primary">Timetable</button>
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <table *ngIf="timetable.length > 0">
-                <tr><th>Class Number</th>
-                    <th>Class Section</th>
-                    <th>Component</th>
-                  <th>Start Time</th>
-                  <th>End Time</th>
-                  <th>Campus</th>
-                  <th>Facility ID</th>
-                  <th>Enrollment Status</th>
-                  <th>Days</th>
-                  <th>Description</th>
-                </tr>
-                <tr  *ngFor="let tt of timetable">
-                <td>{{tt.course_info[0].class_nbr}}</td>
-                <td>{{tt.course_info[0].class_section}}</td>
-                <td>{{tt.course_info[0].ssr_component}}</td>
-                <td>{{tt.course_info[0].start_time}}</td>
-                <td>{{tt.course_info[0].end_time}}</td>
-                <td>{{tt.course_info[0].campus}}</td>
-                <td>{{tt.course_info[0].facility_ID}}</td>
-                <td>{{tt.course_info[0].enrl_stat}}</td>
-                <td>{{tt.course_info[0].days}}</td>
-                <td>{{tt.course_info[0].descr}}</td>
-                </tr>
-              </table>
-        </mat-expansion-panel>
-        <p>{{element.description}}</p>
-    </mat-expansion-panel>
-</mat-accordion>
+<div *ngIf="data.length > 0">
+  <table mat-table
+        [dataSource]="data" multiTemplateDataRows
+        class="mat-elevation-z8">
+        <ng-container matColumnDef="name">
+         <th mat-header-cell *matHeaderCellDef> Courselist Name </th>
+         <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+       </ng-container>
+ 
+       <ng-container matColumnDef="userName">
+         <th mat-header-cell *matHeaderCellDef> User name </th>
+         <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+       </ng-container>
+ 
+       <ng-container matColumnDef="numberofcourses">
+         <th mat-header-cell *matHeaderCellDef> Number of Courses </th>
+         <td mat-cell *matCellDef="let element"> {{element.numberofcourses}} </td>
+       </ng-container> 
+       <ng-container matColumnDef="timetable">
+         <th mat-header-cell *matHeaderCellDef> View Timetable </th>
+           <td mat-cell *matCellDef="let element">
+                 <button mat-raised-button (click)="viewTimetable(element.name)" color="primary">View TimeTable</button>
+           </td>
+       </ng-container> 
+ 
+ 
+   <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+   <ng-container matColumnDef="expandedDetail">
+     <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+       <div class="example-element-detail"
+            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+         <div>
+          <mat-list dense>
+            <mat-list-item *ngFor="let message of element.schedules">
+              <h3 matLine> sub : {{message.subject}} </h3>
+              <p matLine> Cor : {{message.course}} </p>
+            </mat-list-item>
+          </mat-list>
+         </div> 
+        </div>
+   </ng-container>
+ 
+   <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+   <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+       class="example-element-row"
+       [class.example-expanded-row]="expandedElement === element"
+       (click)="expandedElement = expandedElement === element ? null : element">
+   </tr>
+   <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+ </table>
+ </div>

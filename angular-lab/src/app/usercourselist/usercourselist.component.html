@@ -7,8 +7,17 @@
             <mat-panel-title>
                 {{element.name}}
             </mat-panel-title>
+            <mat-panel-description>
+                {{element.description}} -> {{element.numberofcourses}} Courses
+              </mat-panel-description>
         </mat-expansion-panel-header>
-        <p>{{element.description}}</p>
+        <mat-list dense>
+            <mat-list-item *ngFor="let message of element.schedules">
+              <h3 matLine> sub : {{message.subject}} </h3>
+              <p matLine> Cor : {{message.course}} </p>
+            </mat-list-item>
+          </mat-list>
+        <button mat-button (click)="timetable(element.name)" color="primary">View TimeTable</button>
         <mat-action-row>
             <button mat-button (click)="update($event, element)">EDIT</button>
             <button mat-button (click)="getElement(element); openDialog();">DELETE</button>

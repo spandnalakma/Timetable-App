@@ -59,4 +59,8 @@ export class UsercourselistComponent implements OnInit {
     //this.form.patchValue({coursename:element.name, description:element.description})
   }
 
+  timetable(name){
+  this.router.navigateByUrl(`/timetable/${name}`);
+  }
+
 }
