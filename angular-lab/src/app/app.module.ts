@@ -20,6 +20,7 @@ import { CoursesreviewComponent } from './coursesreview/coursesreview.component'
 import { AdminComponent } from './admin/admin.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { TimetableComponent } from './timetable/timetable.component';
+import { EmailVerificationComponent } from './email-verification/email-verification.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { TimetableComponent } from './timetable/timetable.component';
     CoursesreviewComponent,
     AdminComponent,
     ConfirmationDialogComponent,
-    TimetableComponent
+    TimetableComponent,
+    EmailVerificationComponent
   ],
   imports: [
     BrowserModule,

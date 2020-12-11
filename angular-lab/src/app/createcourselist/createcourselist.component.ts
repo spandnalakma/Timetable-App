@@ -45,6 +45,10 @@ export class CreatecourselistComponent implements OnInit {
     }
   }
 
+  get CourseName(){
+    return this.form.get('coursename')
+    }
+
   onSubmit(){
     let vis:string;
     const val = this.form.value;
@@ -71,16 +75,19 @@ export class CreatecourselistComponent implements OnInit {
       })
       if(count<=20){
       this.service.createCourses(respObject).subscribe((data)=>{
+        if(data.message){
         console.log(data);
-        alert(data.message);
+        alert(data.message);}
       })
     }
     }
 
   update(respObject){
       this.service.updateUserCoursList(this.id,respObject).subscribe((data)=>{
+        if(data.message){
         console.log(data);
         alert(data.message);
+      }
       })
   }
 

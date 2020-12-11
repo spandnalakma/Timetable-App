@@ -14,16 +14,32 @@ export class SignupComponent implements OnInit {
   form:FormGroup;
   emailSubject:String;
   link;
+  email:String;
+  token: String;
+
   constructor(private fb:FormBuilder, private service: AppService, private router: Router, private authService: AuthService) {
     this.form = this.fb.group({
       username: ['',Validators.required],
-      email: ['',Validators.required],
+      email: ['',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       password: ['',Validators.required]
   });
    }
 
   ngOnInit(): void {
   }
+
+  get Email(){
+    return this.form.get('email')
+    }
+  
+    get UserName(){
+    return this.form.get('username')
+    }
+
+    get Pswd(){
+      return this.form.get('password')
+    }
+
   signup(){
     const val = this.form.value;
     console.log(val);
@@ -37,9 +53,29 @@ export class SignupComponent implements OnInit {
                     this.emailSubject = data.draftMail.subject;
                     this.link = data.draftMail.link;
                   }
+                  if(data.email){
+                    this.email = data.email;
+                    console.log(this.email);
+                  }
+                  if(data.token){
+                    this.token = data.token;
+                    console.log(this.token);
+                  }
               }
           );
+  }
+  else{
+    alert("Please enter all the details");
   }  
+  }
+
+  verifyEmail(){
+     if(this.email && this.token){
+       this.authService.verifyemail(this.email,this.token).subscribe((data)=>{
+         console.log(data);
+         this.router.navigateByUrl('/verify');
+       })
+     }
   }
 
 }

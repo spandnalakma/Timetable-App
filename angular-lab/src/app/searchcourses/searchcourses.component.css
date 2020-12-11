@@ -56,3 +56,12 @@
   .example-element-description-attribution {
     opacity: 0.5;
   }
+
+
+  .timetable{
+    border: 1px solid black;
+  }
+
+  .timetable table{
+    border-collapse: collapse;
+  }

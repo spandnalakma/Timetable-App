@@ -9,18 +9,17 @@ router.get('/',(req,res)=>{
 })
 
 router.post(
-  '/schedules/create', (req, res) => {
+  '/schedules/create', async (req, res) => {
     let clist = req.body;
     if(!clist){
       return res.status(404).json({"errorMessage":"List is empty"})
     }
+    let exist = await Schedule.findOne({"name":req.body.name});
+    if(exist){
+      return res.status(404).json({"errorMessage":"Course name already exists"});
+    }
     var schedle = new Schedule(clist);
-    schedle.save(function(err,result){
-      if(err){
-        console.log(err);
-        return res.status(404).json({"errorMessage":"Database error"})
-      } 
-    });
+    let userschedule = await schedle.save();
     res.json({"message":"Create successful"});
   }
 );

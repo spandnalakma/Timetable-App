@@ -1,6 +1,6 @@
 <div *ngIf="data.length > 0">
   <table mat-table
-        [dataSource]="data" multiTemplateDataRows
+        [dataSource]="data | slice:0:10" multiTemplateDataRows
         class="mat-elevation-z8">
         <ng-container matColumnDef="name">
          <th mat-header-cell *matHeaderCellDef> Courselist Name </th>
@@ -36,6 +36,7 @@
               <p matLine> Cor : {{message.course}} </p>
             </mat-list-item>
           </mat-list>
+          <p>{{element.description}}</p>
          </div> 
         </div>
    </ng-container>

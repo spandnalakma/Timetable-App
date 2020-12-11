@@ -8,14 +8,26 @@
             <mat-form-field class="full-width">
                 <mat-label>User Name</mat-label>
                 <input  matInput  placeholder="User name"  name="username"  formControlName="username" required>
+                
+                <div *ngIf="(UserName.invalid && UserName.touched) || UserName.dirty">
+                  <small *ngIf="UserName.errors?.required" class="text-danger">User Name is required</small>
+                </div>
              </mat-form-field>
              <mat-form-field class="full-width">
                 <mat-label>Email</mat-label>
-                <input  matInput  placeholder="Email" name="email" formControlName="email" required>
+                <input  matInput  [class.is-invalid] = "form.get('email').invalid && form.get('email').touched" placeholder="Email" name="email" formControlName="email" required>
+
+                <div *ngIf="(Email.invalid && Email.touched) || Email.dirty">
+                  <small *ngIf="Email.errors?.required" class="text-danger">email is required</small>
+                  <small *ngIf="Email.errors?.pattern" class="text-danger">Please provide a valid email address</small>
+                </div>
              </mat-form-field>
              <mat-form-field class="full-width">
                 <mat-label>Password</mat-label>
                 <input  matInput  placeholder="Password"  name="password" formControlName = "password" required>
+                <div *ngIf="(Pswd.invalid && Pswd.touched) || Pswd.dirty">
+                  <small *ngIf="Pswd.errors?.required" class="text-danger">Password is required</small>
+                </div>
              </mat-form-field>
           </form>
          
@@ -26,5 +38,7 @@
  </mat-card>
 
  <div *ngIf="emailSubject">
-   {{emailSubject}} : <a href="#{{link}}">verify</a>
+   <mat-card>
+   {{emailSubject}} : <button mat-button (click)="verifyEmail()" color="primary">{{link}}</button>
+</mat-card>
  </div>

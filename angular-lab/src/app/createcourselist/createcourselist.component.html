@@ -8,6 +8,9 @@
             <mat-form-field class="full-width">
                 <mat-label>Name</mat-label>
                 <input  matInput  placeholder="Unique name"  name="coursename"  formControlName="coursename" oninput="this.value = this.value.toUpperCase()" required>
+                <div *ngIf="(CourseName.invalid && CourseName.touched) || CourseName.dirty">
+                  <small *ngIf="CourseName.errors?.required" class="text-danger">Name is required</small>
+                </div>
              </mat-form-field>
              <mat-form-field class="full-width">
                 <mat-label>Description</mat-label>
@@ -68,4 +71,4 @@
 
  <br>
  <br>
- <button mat-raised-button (click)="viewlist()" color="primary">View Course Lists</button>
+ <button mat-raised-button (click)="viewlist()" color="primary">View my course lists</button>

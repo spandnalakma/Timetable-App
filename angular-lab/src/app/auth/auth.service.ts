@@ -39,6 +39,13 @@ export class AuthService {
     )
   }
 
+  verifyemail(email,token) : Observable<any>{
+    let url = `/api/verifyemail/${email}/${token}`;
+    return this.http.get<any>(this.baseUrl+url).pipe(
+      catchError(this.handleError<any>('verifyemail',[]))
+    )
+  }
+
   setSession(authResult): void{
     const expiresAt = moment().add(authResult.responseObject.expiresIn,'second');
     localStorage.setItem('id_token',authResult.responseObject.token);

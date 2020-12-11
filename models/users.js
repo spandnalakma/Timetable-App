@@ -38,4 +38,9 @@ UserSchema.methods.generateJWTToken = function() {
     return token;
 };
 
-module.exports = mongoose.model('user', UserSchema);
+model = mongoose.model('user', UserSchema);
+module.exports = model;
+
+
+
+//model.collection.drop()

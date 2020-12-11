@@ -16,7 +16,7 @@ const courseinfoSchema = new Schema({
     descr:String
 });
 const timetableSchema = new Schema({
-    catalog_nbr:String,
+    catalog_nbr:Schema.Types.Mixed,
     subject:String,
     className:String,
     course_info:[courseinfoSchema],

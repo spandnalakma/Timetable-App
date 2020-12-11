@@ -15,6 +15,7 @@ import {AddreviewComponent} from './addreview/addreview.component';
 import {CoursesreviewComponent} from './coursesreview/coursesreview.component';
 import {AdminComponent} from './admin/admin.component';
 import {TimetableComponent} from './timetable/timetable.component';
+import {EmailVerificationComponent} from './email-verification/email-verification.component';
 
 
 const routes: Routes = [
@@ -30,7 +31,8 @@ const routes: Routes = [
   {path:'addreview',component:AddreviewComponent, canActivate:[AuthGuard]},
   {path:'coursesreview',component:CoursesreviewComponent, canActivate:[AuthGuard]},
   {path:'admin',component:AdminComponent, canActivate:[AuthGuard]},
-  {path:'timetable/:name',component:TimetableComponent}
+  {path:'timetable/:name',component:TimetableComponent},
+  {path:'verify',component:EmailVerificationComponent}
 ];
 
 @NgModule({

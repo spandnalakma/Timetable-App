@@ -12,7 +12,8 @@ const emailverify = require('../models/email-verification');
 router.post('/signup',  async (req,res) => {
     let user = await User.findOne({username:req.body.username});
     if(user){
-      return res.status(400).json({"errorMessage":"user already exists"});
+      console.log("user already exists");
+      return res.status(404).json({"errorMessage":"user already exists"});
     }
 
     user = new User(req.body);
@@ -23,20 +24,21 @@ router.post('/signup',  async (req,res) => {
     let tokenModel = await verify_token.save();
     let host = req.get('host');
     host = 'localhost:3000';  // comment later
-    let verifyLink ='http://'+host+'/api/verifyemail?email='+user.email +'&token='+verify_token;
+    let verifyLink ='http://'+host+'/api/verifyemail?email='+user.email +'&token='+generatedtoken;
 
     
     var draftMail = { to: user.email, subject: 'Account Verification - Please click on following link', link: verifyLink };
 
     //const token = user.generateJWTToken();
-    res.status(200).send({draftMail:draftMail});
+    res.status(200).send({draftMail:draftMail, email:user.email,token:generatedtoken});
 }
 );
 
-router.get('/verifyemail', async (req,res)=>{
-    let token = req.query.token;
-    let email = req.query.email;
-    let user = await user.findOne({"email":email});
+router.get('/verifyemail/:email/:token', async (req,res)=>{
+    let token = req.params.token;
+    let email = req.params.email;
+    let user = await User.findOne({"email":email});
+
     if(!user){
       res.status(404).json({"errorMessage":"email does not exist"});
     }
@@ -51,9 +53,8 @@ router.get('/verifyemail', async (req,res)=>{
       res.status(404).json({"errorMessage":"Token is not verified"});
     }
     let host = req.get('host');
-    let updated_user = await user.findOneAndUpdate({"email":email},{isVerified: true});
-    res.set('location', 'http://' + host + '/login');
-    return res.status(301).send();
+    let updated_user = await User.findOneAndUpdate({"email":email},{isVerified: true});
+    return res.status(200).json({"messsage":"Verification success"});
 
 })
 
@@ -68,7 +69,7 @@ router.post('/login',
               //const error = new Error('An error occurred.');
               if(err){
               console.log(err);
-               return res.status(404).json({"errorMessage":"login error"});
+               return res.status(404).json({"errorMessage":"login unsuccessful"});
               }
               if(!user){
                 return res.status(404).json({"errorMessage":info.message});
