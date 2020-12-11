@@ -36,6 +36,7 @@ export class AdminComponent implements OnInit {
     resObject={"isAdmin":this.dataSource[index].isAdmin,"deactivated":this.dataSource[index].deactivated};
     this.service.updateUserStatus(this.dataSource[index].username,resObject).subscribe((data)=>{
       console.log(data);
+      alert(data.message);
     })
     this.getUsers();
   }
@@ -46,6 +47,7 @@ export class AdminComponent implements OnInit {
     resObject = {"hidden":this.reviewsList[index].hidden};
     this.service.updateReviewStatus(this.reviewsList[index].subject,this.reviewsList[index].course,resObject).subscribe((data)=>{
       console.log(data);
+      alert(data.message);
     })
     this.getReviews();
   } 

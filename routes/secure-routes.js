@@ -12,17 +12,16 @@ router.post(
   '/schedules/create', (req, res) => {
     let clist = req.body;
     if(!clist){
-      return res.status(404).json({errorMessage:'List is empty'})
+      return res.status(404).json({"errorMessage":"List is empty"})
     }
     var schedle = new Schedule(clist);
     schedle.save(function(err,result){
       if(err){
         console.log(err);
-        return;
-      }
-      
+        return res.status(404).json({"errorMessage":"Database error"})
+      } 
     });
-    res.json(schedle);
+    res.json({"message":"Create successful"});
   }
 );
 
@@ -30,53 +29,70 @@ router.put('/schedules/update/:cname',(req,res)=>{
   
     let username = req.params.cname;
 
-    Schedule.findOneAndUpdate({"name":username}, req.body, {upsert: true}, function(err, doc) {
-      if (err) return res.json(err);
-      return res.json('Succesfully saved.');
+    Schedule.findOneAndUpdate({"name":username}, req.body, function(err, doc) {
+      if (err) {
+        console.log(err);
+        return res.status(404).json({"errorMessage":"Database error"});
+      }
+      return res.json({"message":"Succesfully updated"});
       });
 })
 
 router.delete('/schedules/delete/:cname',(req,res)=>{
   let username = req.params.cname;
   Schedule.findOneAndDelete({ "name": username }, function (err) {
-    if(err) res.json(err);
-    res.json("Successful deletion");
+    if(err) {
+      console.log(err);
+      return res.status(404).json({"errorMessage":"Database error"});
+    }
+    res.json({"message":"delete successful"});
   });
 })
 
 router.post('/reviews/create',(req,res)=>{
    let rev = req.body;
    if(!rev){
-     return res.status(404).json("review is empty");
+     return res.status(404).json({"errorMessage":"review is empty"});
    }
    let review = new Review(rev);
    review.save();
-   res.json(review);
+   res.json({"message":"Review create successful"});
 })
 
 router.get('/courses',(req,res)=>{
   Courses.find({},{_id:0, subject:1, catalog_nbr:1}, (err,result) => {
-    if(err) res.json(err)
-    if(result){
-      res.json(result)
+    if(err) {
+      console.log(err);
+      return res.status(404).json({"errorMessage":"Database error"});
     }
+    if(!result){
+      return res.status(404).json({"errorMessage":"No courses found"})
+    }
+    res.json(result)
   })
 })
 
 router.get('/usercourselists/:name',(req,res)=>{
   let name = req.params.name;
   Schedule.find({"userName":name},(err,result)=>{
-    if(err) res.json(err)
-    if(result){
-      res.json(result)
+    if(err) {
+      console.log(err);
+      return res.status(404).json({"errorMessage":"Database error"});
     }
+    if(!result){
+      return res.status(404).json({"errorMessage":"No courses found"})
+    }
+    res.json(result)
   })
 })
 
 router.get('/usercount/:username',(req,res)=>{
   let name =  req.params.username;
   Schedule.countDocuments({"userName":name}, function(err, c) {
-    if(err) res.json(err)
+    if(err) {
+      console.log(err);
+      return res.status(404).json({"errorMessage":"Database error"});
+    }
       res.json(c)
 });
 })
@@ -85,10 +101,14 @@ router.get('/courselists/:id',(req,res)=>{
   let name = req.params.id;
   console.log(name);
   Schedule.find({ "name":name },(err,result)=>{
-    if(err) res.json(err)
-    if(result){
-      res.json(result)
+    if(err) {
+      console.log(err);
+      return res.status(404).json({"errorMessage":"Database error"});
     }
+    if(!result){
+      return res.status(404).json({"errorMessage":"schedules are empty"});
+    }
+    res.json(result)
   })
 })
 
@@ -97,10 +117,10 @@ router.get('/openreviews/:subject/:course',(req,res)=>{
   let course = req.params.course;
   Review.find({"subject":subject,"course":course,hidden:"false"},function(err,result){
       if(err){
-          res.json(err)
-      }else{
-          res.json(result);
+        console.log(err);
+        return res.status(404).json({"errorMessage":"Database error"});
       }
+      res.json(result); 
   })
 })
 

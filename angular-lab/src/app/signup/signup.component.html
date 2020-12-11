@@ -24,3 +24,7 @@
         <button mat-raised-button (click)="signup()" color="primary">REGISTER</button>
     </mat-card-actions>
  </mat-card>
+
+ <div *ngIf="emailSubject">
+   {{emailSubject}} : <a href="#{{link}}">verify</a>
+ </div>

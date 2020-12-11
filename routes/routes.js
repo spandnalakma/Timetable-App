@@ -3,24 +3,59 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/users');
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
+const emailverify = require('../models/email-verification');
+
 
 
 router.post('/signup',  async (req,res) => {
     let user = await User.findOne({username:req.body.username});
     if(user){
-      return res.status(400).json({message:"user already exists"});
+      return res.status(400).json({"errorMessage":"user already exists"});
     }
 
     user = new User(req.body);
-    user.save((err)=>{
-      if(err){
-      console.log(err);
-    }
-    const token = user.generateJWTToken();
-    res.status(200).send({auth:true,token:token});
-  });
+    let savedUser = await user.save();
+     
+    generatedtoken = crypto.randomBytes(16).toString('hex');
+    var verify_token = new emailverify({email:user.email,token:generatedtoken});
+    let tokenModel = await verify_token.save();
+    let host = req.get('host');
+    host = 'localhost:3000';  // comment later
+    let verifyLink ='http://'+host+'/api/verifyemail?email='+user.email +'&token='+verify_token;
+
+    
+    var draftMail = { to: user.email, subject: 'Account Verification - Please click on following link', link: verifyLink };
+
+    //const token = user.generateJWTToken();
+    res.status(200).send({draftMail:draftMail});
 }
 );
+
+router.get('/verifyemail', async (req,res)=>{
+    let token = req.query.token;
+    let email = req.query.email;
+    let user = await user.findOne({"email":email});
+    if(!user){
+      res.status(404).json({"errorMessage":"email does not exist"});
+    }
+    if(user.isVerified){
+      res.status(404).json({"errorMessage":"This email is already verified"});
+    }
+    let verifyToken = await emailverify.findOne({"email":email});
+    if(!verifyToken){
+      res.status(404).json({"errorMessage":"Email does not match"});
+    }
+    if(verifyToken.token != token){
+      res.status(404).json({"errorMessage":"Token is not verified"});
+    }
+    let host = req.get('host');
+    let updated_user = await user.findOneAndUpdate({"email":email},{isVerified: true});
+    res.set('location', 'http://' + host + '/login');
+    return res.status(301).send();
+
+})
 
 
 router.post('/login',
@@ -31,8 +66,13 @@ router.post('/login',
           try {
             if (err || !user) {
               //const error = new Error('An error occurred.');
+              if(err){
               console.log(err);
-               res.json(err);
+               return res.status(404).json({"errorMessage":"login error"});
+              }
+              if(!user){
+                return res.status(404).json({"errorMessage":info.message});
+              }
               //return next(error);
             }
   
@@ -40,7 +80,14 @@ router.post('/login',
               user,
               { session: false },
               async (error) => {
-                if (error) return next(error);
+                if (error) {
+                  return res.status(404).json({"errorMessage":"login error"})
+                  //return next(error);
+                }
+
+                if(!user.isVerified){
+                  return res.status(404).json({"errorMessage":"Your account is not verified"})
+                }
   
                 const token = user.generateJWTToken();
 

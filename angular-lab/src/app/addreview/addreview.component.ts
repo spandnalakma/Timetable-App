@@ -60,6 +60,7 @@ export class AddreviewComponent implements OnInit {
     let resObject={"subject":this.subject,"course":this.course,"comments":val.review,"username":this.authService.getUserName()};
     this.service.createReview(resObject).subscribe((data)=>{
       console.log(data);
+      alert(data.message);
     })
   }
   }

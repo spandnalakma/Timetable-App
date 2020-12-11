@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 import { Observable,of } from 'rxjs';
 import * as moment from "moment";
+import { catchError,tap,map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +17,26 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error); 
+      alert(error.error.errorMessage);
+      return of(result as T);
+    };
+  }
+
   login(details) : Observable<any> {
     let loginUrl = "/api/login";
-    return this.http.post<any>(this.baseUrl+loginUrl, JSON.stringify(details),this.httpsOptions)
+    return this.http.post<any>(this.baseUrl+loginUrl, JSON.stringify(details),this.httpsOptions).pipe(
+      catchError(this.handleError<any>('login',[]))
+    )
   }
 
   signup(details) : Observable<any> {
     let signupUrl = "/api/signup";
-    return this.http.post<any>(this.baseUrl+signupUrl, JSON.stringify(details),this.httpsOptions)
+    return this.http.post<any>(this.baseUrl+signupUrl, JSON.stringify(details),this.httpsOptions).pipe(
+      catchError(this.handleError<any>('signup',[]))
+    )
   }
 
   setSession(authResult): void{

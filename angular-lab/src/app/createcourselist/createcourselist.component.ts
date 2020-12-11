@@ -72,6 +72,7 @@ export class CreatecourselistComponent implements OnInit {
       if(count<=20){
       this.service.createCourses(respObject).subscribe((data)=>{
         console.log(data);
+        alert(data.message);
       })
     }
     }
@@ -79,6 +80,7 @@ export class CreatecourselistComponent implements OnInit {
   update(respObject){
       this.service.updateUserCoursList(this.id,respObject).subscribe((data)=>{
         console.log(data);
+        alert(data.message);
       })
   }
 

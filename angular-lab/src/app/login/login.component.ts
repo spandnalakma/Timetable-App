@@ -28,9 +28,11 @@ export class LoginComponent implements OnInit {
             this.authService.login(val)
                 .subscribe(
                     (response) => {
+                      if(response.responseObject){
                         this.authService.setSession(response);
                         console.log("User is logged in");
                         this.router.navigateByUrl('/');
+                      }
                     }
                 );
         }  

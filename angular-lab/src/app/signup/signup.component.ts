@@ -12,6 +12,8 @@ import {AuthService} from '../auth/auth.service';
 export class SignupComponent implements OnInit {
 
   form:FormGroup;
+  emailSubject:String;
+  link;
   constructor(private fb:FormBuilder, private service: AppService, private router: Router, private authService: AuthService) {
     this.form = this.fb.group({
       username: ['',Validators.required],
@@ -29,9 +31,12 @@ export class SignupComponent implements OnInit {
     if (val.email && val.password && val.username) {
       this.authService.signup(val)
           .subscribe(
-              () => {
-                  console.log("User is signed up");
-                  this.router.navigateByUrl('/login');
+              (data) => {
+                  console.log(data);
+                  if(data.draftMail){
+                    this.emailSubject = data.draftMail.subject;
+                    this.link = data.draftMail.link;
+                  }
               }
           );
   }  

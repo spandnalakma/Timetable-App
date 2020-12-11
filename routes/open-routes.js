@@ -7,15 +7,14 @@ const Reviews = require('../models/review');
 var stringSimilarity = require('string-similarity');
 
 
-router.get('/',(req,res)=>{
-    res.send("hello world!")
-})
-
 router.get('/courses/:subjectId/:courseId',async (req,res)=>{
     resultedlist = []
     let subject  = req.params.subjectId;
     let course = req.params.courseId;
     let result = await Courses.findOne({"subject":subject, "catalog_nbr":{$regex:course,$options:'i'}});
+    if(!result){
+      res.status(404).json({"errorMessage":"No result found"})
+    }
     let review = await Reviews.find({"subject":subject,"course":{$regex:course,$options:'i'}});
     let res_obj = result.toObject();
     res_obj.review = review;
@@ -47,7 +46,8 @@ router.get('/schedules/:username',(req,res)=>{
     let username = req.params.username;
       Schedules.find({"visibility":"public","userName":{$ne:username}}).sort([['updatedate',-1]]).exec(function(err,result){
           if(err){
-              res.json(err)
+              console.log(err);
+              res.json({"errorMessage":"Database error"})
           }else{
               res.json(result);
           }
@@ -58,10 +58,16 @@ router.get('/schedules/:username',(req,res)=>{
 router.get('/userschedules/:coursename',async(req,res)=>{
     let coursename = req.params.coursename;
     let courseList = await Schedules.find({"name":coursename})
+    if(!courseList){
+      res.status(404).json({"errorMessage":"No courselist with given name"})
+    }
   
     const resultedCourses = {};
   
     let courses = courseList[0].schedules;
+    if(!courses){
+      res.status(404).json({"errorMessage":"course list is empty"})
+    }
   
       for (let c of courses) {
         let catalog_nbr = c.course.toString();
@@ -71,10 +77,10 @@ router.get('/userschedules/:coursename',async(req,res)=>{
         if(catalog_nbr.length > 4){
             key = catalog_nbr.charAt(catalog_nbr.length-1);
         }
-        if(catalog_nbr.length === 4){
+        /* if(catalog_nbr.length === 4){
           catalog_nbr = parseInt(catalog_nbr);
           console.log(catalog_nbr)
-        }
+        } */
         
         let course_ = await Courses.findOne({
           catalog_nbr: catalog_nbr,

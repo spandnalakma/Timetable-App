@@ -8,13 +8,16 @@ const UserSchema = new Schema({
     password: { type: String, required: true },
     username: { type: String, unique:true},
     deactivated: { type: Boolean, default: false },
-    isAdmin: { type: Boolean, default: false }
+    isAdmin: { type: Boolean, default: false },
+    isVerified: {type: Boolean, default:false}
 });
 
 UserSchema.pre('save',
     async function (next) {
         const user = this;
-        const hash = await bcrypt.hash(this.password, 10);
+        const saltRounds = 10;
+        const salt = await bcrypt.genSalt(saltRounds);
+        const hash = await bcrypt.hash(this.password, salt);
         this.password = hash;
         next();
     })
