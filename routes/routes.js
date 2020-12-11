@@ -34,9 +34,9 @@ router.post('/signup',  async (req,res) => {
 }
 );
 
-router.get('/verifyemail/:email/:token', async (req,res)=>{
-    let token = req.params.token;
-    let email = req.params.email;
+router.get('/verifyemail', async (req,res)=>{
+    let token = req.query.token;
+    let email = req.query.email;
     let user = await User.findOne({"email":email});
 
     if(!user){
@@ -53,9 +53,10 @@ router.get('/verifyemail/:email/:token', async (req,res)=>{
       res.status(404).json({"errorMessage":"Token is not verified"});
     }
     let host = req.get('host');
+    
     let updated_user = await User.findOneAndUpdate({"email":email},{isVerified: true});
-    return res.status(200).json({"messsage":"Verification success"});
-
+    
+    res.json("Email verification successful");
 })
 
 

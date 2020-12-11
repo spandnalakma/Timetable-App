@@ -69,13 +69,8 @@ export class SignupComponent implements OnInit {
   }  
   }
 
-  verifyEmail(){
-     if(this.email && this.token){
-       this.authService.verifyemail(this.email,this.token).subscribe((data)=>{
-         console.log(data);
-         this.router.navigateByUrl('/verify');
-       })
-     }
+  onGoToPage(){
+    window.location.href=this.link;
   }
 
 }

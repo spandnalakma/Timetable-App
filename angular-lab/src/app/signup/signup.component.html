@@ -39,6 +39,6 @@
 
  <div *ngIf="emailSubject">
    <mat-card>
-   {{emailSubject}} : <button mat-button (click)="verifyEmail()" color="primary">{{link}}</button>
+   <a [routerLink]="" (click)="onGoToPage()">{{this.emailSubject}}</a>
 </mat-card>
  </div>
