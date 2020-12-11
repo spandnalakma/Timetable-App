@@ -3,6 +3,7 @@ import { FormBuilder,FormGroup, Validators } from '@angular/forms';
 import { AppService } from '../app.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { SocialAuthService, FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { AuthService } from '../auth/auth.service';
 })
 export class LoginComponent implements OnInit {
   form:FormGroup;
-  constructor(private fb:FormBuilder, private service: AppService, private router: Router, private authService:AuthService) {
+  constructor(private fb:FormBuilder, private service: AppService, private router: Router, private authService:AuthService, private socialauth: SocialAuthService) {
     this.form = this.fb.group({
       email: ['',Validators.required],
       password: ['',Validators.required]
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit(): void {
+  
   }
   login(){
     const val = this.form.value;
@@ -42,8 +44,20 @@ export class LoginComponent implements OnInit {
      this.router.navigateByUrl('/signup');
   }
 
-  thirdparty(){
-    //this.service.googleLogin().subscribe(()=>{console.log("User is logged")})
+  loginWithGoogle(){
+    this.socialauth.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.socialauth.authState.subscribe((user) => {
+      console.log(user);
+      if(user.name){
+        this.authService.goggleLogin(user.name).subscribe((data)=>{
+          if(data.responseObject){
+            this.authService.setSession(data);
+            console.log("User is logged in");
+            this.router.navigateByUrl('/');
+          }
+        })
+      }
+    });
   }
 
 }

@@ -39,6 +39,13 @@ export class AuthService {
     )
   }
 
+  goggleLogin(name): Observable<any>{
+    let url = `/api/google/${name}`;
+    return this.http.get<any>(this.baseUrl+url).pipe(
+      catchError(this.handleError<any>('goggleLogin',[]))
+    )
+  }
+
   setSession(authResult): void{
     const expiresAt = moment().add(authResult.responseObject.expiresIn,'second');
     localStorage.setItem('id_token',authResult.responseObject.token);

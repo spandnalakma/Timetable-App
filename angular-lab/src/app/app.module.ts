@@ -21,6 +21,8 @@ import { AdminComponent } from './admin/admin.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { TimetableComponent } from './timetable/timetable.component';
 import { EmailVerificationComponent } from './email-verification/email-verification.component';
+import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
+
 
 @NgModule({
   declarations: [
@@ -46,13 +48,28 @@ import { EmailVerificationComponent } from './email-verification/email-verificat
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialuiModule
+    MaterialuiModule,
+    SocialLoginModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
-    multi: true,
+    multi: true
   },
+  {
+    provide: 'SocialAuthServiceConfig',
+    useValue: {
+      autoLogin: false,
+      providers: [
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider(
+            '503303147730-e7l7nhdah9kck5qonfuihi83s3casqo6.apps.googleusercontent.com'
+          )
+        }
+      ]
+    } as SocialAuthServiceConfig,
+  }
 ],
   bootstrap: [AppComponent]
 })

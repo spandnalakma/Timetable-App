@@ -112,14 +112,28 @@ router.post('/login',
   );
 
 
-  router.get('/auth/google',
+/*   router.get('/auth/google',
   passport.authenticate('google', { scope: ['profile', 'email'] }));
 
   router.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
     res.redirect('/');
-  });
+  }); */
+
+  router.get('/google/:name',(req,res)=>{
+    let name = req.params.name;
+     let user = new User({"username":name, "isAdmin":false});
+     let token = user.generateJWTToken();
+     const responseObject = {
+      userName: user.username,
+      isAdmin:user.isAdmin,
+      token: token,
+      expiresIn:86400
+    };
+
+    return res.json({ responseObject });
+  })
 
 
 module.exports = router;

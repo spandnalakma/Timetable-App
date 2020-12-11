@@ -62,7 +62,7 @@ var GoogleStrategy = require('passport-google-oauth20').Strategy;
     )
   );
 
-  passport.serializeUser((user,done)=>{
+ /*  passport.serializeUser((user,done)=>{
     done(null,user.id);
   })
 
@@ -70,9 +70,9 @@ var GoogleStrategy = require('passport-google-oauth20').Strategy;
     UserEModel.findById(id).then((user)=>{
       done(null,user);
     });
-  });
+  }); */
 
-  passport.use(new GoogleStrategy({
+  /* passport.use(new GoogleStrategy({
     clientID: "269518045972-ejdbsr1acrt9f62t30ha8k5m4e3i2abk.apps.googleusercontent.com",
     clientSecret: "rHiGrydp-IdpfZGFA-zX_Oyd",
     callbackURL: "/auth/google/callback"
@@ -93,7 +93,7 @@ var GoogleStrategy = require('passport-google-oauth20').Strategy;
       }
     })
   }
-));
+)); */
 
 
 
