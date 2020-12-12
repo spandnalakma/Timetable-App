@@ -11,7 +11,7 @@ import {AuthService} from '../auth/auth.service';
 export class TimetableComponent implements OnInit {
   name;
   Object = Object;
-  timetble:any[];
+  timetble:{};
   columnsToDisplay = ['year','subject','catalog_nbr','class_nbr','start_time','end_time','campus','days','class_section','ssr_component'];
   constructor(private service: AppService, private router: Router, private authService: AuthService, private route:ActivatedRoute) { }
 
@@ -22,9 +22,13 @@ export class TimetableComponent implements OnInit {
   timetable(name){
     this.service.getUserTimetableForSchedules(name).subscribe((data)=>{
       this.sortTimeTable(data);
-      this.timetble = data;  
+      this.timetble = this.sortObjectByKeys(data);  
     })
   }
+  sortObjectByKeys(o) {
+    return Object.keys(o).sort().reduce((r, k) => (r[k] = o[k], r), {});
+  }
+
   sortTimeTable(data):any[]{
     for (let key of Object.keys(data)){
       let c_list = [];
