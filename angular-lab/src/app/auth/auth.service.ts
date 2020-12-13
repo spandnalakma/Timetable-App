@@ -27,21 +27,21 @@ export class AuthService {
 
   login(details) : Observable<any> {
     let loginUrl = "/api/login";
-    return this.http.post<any>(this.baseUrl+loginUrl, JSON.stringify(details),this.httpsOptions).pipe(
+    return this.http.post<any>(loginUrl, JSON.stringify(details),this.httpsOptions).pipe(
       catchError(this.handleError<any>('login',[]))
     )
   }
 
   signup(details) : Observable<any> {
     let signupUrl = "/api/signup";
-    return this.http.post<any>(this.baseUrl+signupUrl, JSON.stringify(details),this.httpsOptions).pipe(
+    return this.http.post<any>(signupUrl, JSON.stringify(details),this.httpsOptions).pipe(
       catchError(this.handleError<any>('signup',[]))
     )
   }
 
   goggleLogin(name): Observable<any>{
     let url = `/api/google/${name}`;
-    return this.http.get<any>(this.baseUrl+url).pipe(
+    return this.http.get<any>(url).pipe(
       catchError(this.handleError<any>('goggleLogin',[]))
     )
   }

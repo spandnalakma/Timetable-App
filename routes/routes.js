@@ -23,7 +23,7 @@ router.post('/signup',  async (req,res) => {
     var verify_token = new emailverify({email:user.email,token:generatedtoken});
     let tokenModel = await verify_token.save();
     let host = req.get('host');
-    host = 'localhost:3000';  // comment later
+    //host = 'localhost:3000';  // comment later
     let verifyLink ='http://'+host+'/api/verifyemail?email='+user.email +'&token='+generatedtoken;
 
     

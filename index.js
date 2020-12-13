@@ -1,13 +1,12 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.port || 4200;
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const fs = require('fs');
 const cookieSession = require('cookie-session');
 var cors = require('cors');
-
 
 
 
