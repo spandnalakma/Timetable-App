@@ -31,7 +31,7 @@
   
   .example-element-detail {
     overflow: hidden;
-    display: flex;
+    /* display: flex; */
   }
   
   .example-element-diagram {
@@ -58,10 +58,12 @@
   }
 
 
-  .timetable{
-    border: 1px solid black;
-  }
-
-  .timetable table{
+  table.timetable {
     border-collapse: collapse;
+  }
+  
+  td.timetable, th.timetable {
+    border: 1px solid #999;
+    padding: 0.5rem;
+    text-align: left;
   }

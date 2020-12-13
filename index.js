@@ -14,7 +14,7 @@ var cors = require('cors');
 const UserModel = require('./models/users');
 const Courses = require('./models/courses');
 
-
+app.use("/",express.static('./angular-lab/dist/angular-lab'));
 var uri = 'mongodb://localhost:27017/timetable';
 mongoose.connect(uri,{ useUnifiedTopology: true,  useNewUrlParser: true } ).then(() => {
     console.log("MongoDB is connected");
@@ -66,11 +66,11 @@ Courses.count(function(err, result){
     } 
  }); 
 
-app.get("/",(req,res)=>{
+/* app.get("/",(req,res)=>{
     Courses.find({}, function(err, data){
         res.send(data);
     });  
-})
+}) */
 
 app.listen(port,()=>{
     console.log(`Listening on port ${port}`);

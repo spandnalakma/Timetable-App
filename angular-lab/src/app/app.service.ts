@@ -129,8 +129,8 @@ export class AppService {
     )
   }
 
-  updateReviewStatus(subject,course,resObject) : Observable<any>{
-    let url = `/api/admin/review/${subject}/${course}`;
+  updateReviewStatus(id,resObject) : Observable<any>{
+    let url = `/api/admin/review/${id}`;
     return this.http.put<any>(this.baseUrl+url,resObject,this.httpsOptions).pipe(
       catchError(this.handleError<any>('updateReviewStatus',[]))
     )

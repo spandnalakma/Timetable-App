@@ -27,6 +27,7 @@ export class AdminComponent implements OnInit {
   getReviews(){
     this.service.getReviews().subscribe((data)=>{
       this.reviewsList = data;
+      console.log(this.reviewsList);
     })
   }
 
@@ -45,9 +46,9 @@ export class AdminComponent implements OnInit {
     let resObject;
     console.log(this.reviewsList[index].hidden, this.reviewsList[index].subject,this.reviewsList[index].course);
     resObject = {"hidden":this.reviewsList[index].hidden};
-    this.service.updateReviewStatus(this.reviewsList[index].subject,this.reviewsList[index].course,resObject).subscribe((data)=>{
+    this.service.updateReviewStatus(this.reviewsList[index]._id,resObject).subscribe((data)=>{
       console.log(data);
-      alert(data.message);
+      alert(data.message);  //this.reviewsList[index].subject,this.reviewsList[index].course,
     })
     this.getReviews();
   } 

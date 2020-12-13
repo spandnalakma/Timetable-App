@@ -15,7 +15,7 @@ router.get('/courses/:subjectId/:courseId',async (req,res)=>{
     if(!result){
       res.status(404).json({"errorMessage":"No result found"})
     }
-    let review = await Reviews.find({"subject":subject,"course":{$regex:course,$options:'i'}});
+    let review = await Reviews.find({"subject":subject,"course":{$regex:course,$options:'i'},"hidden":false});
     let res_obj = result.toObject();
     res_obj.review = review;
     resultedlist.push(res_obj);
@@ -32,7 +32,7 @@ router.get('/courses/:text',async (req,res)=>{
         var catalogSimilarity = stringSimilarity.compareTwoStrings(text,course.catalog_nbr.toString());
         //console.log(similarity);
         if(classNameSimilarity >= 0.3 || catalogSimilarity >= 0.3){
-          let review = await Reviews.find({"subject":course.subject.toString(),"course":course.catalog_nbr.toString()});
+          let review = await Reviews.find({"subject":course.subject.toString(),"course":course.catalog_nbr.toString(),"hidden":false});
           let course_obj = course.toObject();
           course_obj.review = review;
           console.log(course_obj);
@@ -77,10 +77,10 @@ router.get('/userschedules/:coursename',async(req,res)=>{
         if(catalog_nbr.length > 4){
             key = catalog_nbr.charAt(catalog_nbr.length-1);
         }
-        /* if(catalog_nbr.length === 4){
+        if(catalog_nbr.length === 4){
           catalog_nbr = parseInt(catalog_nbr);
           console.log(catalog_nbr)
-        } */
+        }
         
         let course_ = await Courses.findOne({
           catalog_nbr: catalog_nbr,

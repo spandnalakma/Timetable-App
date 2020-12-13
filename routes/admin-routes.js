@@ -3,12 +3,12 @@ const router = express.Router();
 const Review = require("../models/review");
 const User = require("../models/users");
 
-router.put('/review/:subject/:course',(req,res)=>{
+router.put('/review/:id',async (req,res)=>{
     
-       let sub = req.params.subject;
-       let course = req.params.course;
+       let id = req.params.id;
+       console.log(req.body.hidden);
 
-       Review.findOneAndUpdate({"subject":sub,"course":course}, {"hidden":req.body.hidden}, {upsert: false}, function(err, doc) {
+       Review.findOneAndUpdate({"_id":id}, {"hidden":req.body.hidden}, {upsert: true}, function(err, doc) {
         if (err) {
         console.log(err);
         return res.status(404).json({"errorMessage":"Database error"});
