@@ -58,12 +58,12 @@
   }
 
 
-  table.timetable {
-    border-collapse: collapse;
-  }
-  
-  td.timetable, th.timetable {
-    border: 1px solid #999;
-    padding: 0.5rem;
-    text-align: left;
-  }
+ .timetable{
+  border: 1px black solid;
+  text-align: center;
+ }
+
+ .reviews{
+  border: 1px black solid;
+  text-align: center;
+ }

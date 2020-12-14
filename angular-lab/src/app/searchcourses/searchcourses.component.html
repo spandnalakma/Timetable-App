@@ -57,41 +57,46 @@
             [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
          <div>
            <table class ="timetable">
-             <tr><th>Class Number</th>
-               <th>Start Time</th>
-               <th>End Time</th>
-               <th>Campus</th>
-               <th>Facility ID</th>
-               <th>Enrollment Status</th>
-               <th>Days</th>
-               <th>Description</th>
+             <tr><th class ="timetable">Class Number</th>
+               <th class ="timetable">Start Time</th>
+               <th class ="timetable">End Time</th>
+               <th class ="timetable">Campus</th>
+               <th class ="timetable">Facility ID</th>
+               <th class ="timetable">Enrollment Status</th>
+               <th class ="timetable">Days</th>
+               <th class ="timetable">Description</th>
              </tr>
-             <tr><td>{{element.course_info[0].class_nbr}}</td>
-             <td>{{element.course_info[0].start_time}}</td>
-             <td>{{element.course_info[0].end_time}}</td>
-             <td>{{element.course_info[0].campus}}</td>
-             <td>{{element.course_info[0].facility_ID}}</td>
-             <td>{{element.course_info[0].enrl_stat}}</td>
-             <td>{{element.course_info[0].days}}</td>
-             <td>{{element.course_info[0].descr}}</td>
+             <tr><td class ="timetable">{{element.course_info[0].class_nbr}}</td>
+             <td class ="timetable">{{element.course_info[0].start_time}}</td>
+             <td class ="timetable">{{element.course_info[0].end_time}}</td>
+             <td class ="timetable">{{element.course_info[0].campus}}</td>
+             <td class ="timetable">{{element.course_info[0].facility_ID}}</td>
+             <td class ="timetable">{{element.course_info[0].enrl_stat}}</td>
+             <td class ="timetable">{{element.course_info[0].days}}</td>
+             <td class ="timetable">{{element.course_info[0].descr}}</td>
              </tr>
            </table>
          </div>
-         <!-- <div>
-           {{element.catalog_description}}
-         </div> -->
          <br>
-         <table class = "reviews">
-           <tr><th>Review Creater</th>
-             <th>Review Create Time</th>
-             <th>Comments</th>
-           </tr>
-           <tr *ngFor='let review of element.review'>
-             <td>{{review.username}}</td>
-             <td>{{review.updatedate}}</td>
-             <td>{{review.comments}}</td>
-             </tr>
-         </table>
+         <div>
+           <b>Course Description :</b> {{element.catalog_description}}
+         </div>
+         <br>
+         <h3>Reviews</h3>
+         <div *ngIf='element.review.length === 0'> No Reviews found for this courses</div>
+         <div *ngIf="element.review.length > 0">
+          <table class = "reviews">
+            <tr><th class = "reviews">Review Creater</th>
+              <th class = "reviews">Review Create Time</th>
+              <th class = "reviews">Comments</th>
+            </tr>
+            <tr *ngFor='let review of element.review'>
+              <td class = "reviews">{{review.username}}</td>
+              <td class = "reviews">{{review.updatedate}}</td>
+              <td class = "reviews">{{review.comments}}</td>
+              </tr>
+          </table>
+         </div>
        </div>
      </td>
    </ng-container>

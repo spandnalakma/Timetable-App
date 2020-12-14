@@ -55,3 +55,13 @@
   .example-element-description-attribution {
     opacity: 0.5;
   }
+
+  .timetable{
+    border: 1px black solid;
+    text-align: center;
+   }
+  
+   .reviews{
+    border: 1px black solid;
+    text-align: center;
+   }
