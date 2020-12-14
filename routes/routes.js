@@ -11,7 +11,8 @@ const emailverify = require('../models/email-verification');
 
 router.post('/signup',  async (req,res) => {
     let user = await User.findOne({username:req.body.username});
-    if(user){
+    let useremail = await User.findOne({"email":req.body.email});
+    if(user || useremail){
       console.log("user already exists");
       return res.status(404).json({"errorMessage":"user already exists"});
     }
@@ -88,7 +89,14 @@ router.post('/login',
                 }
 
                 if(!user.isVerified){
-                  return res.status(404).json({"errorMessage":"Your account is not verified"})
+                  let host = req.get('host');
+                  let vrfy = await emailverify.findOne({"email":user.email});
+                  console.log(vrfy);
+                  if(vrfy.token){
+                    let verifyLink ='http://'+host+'/api/verifyemail?email='+user.email +'&token='+vrfy.token;
+                    return res.json({"message":`Please copy paste the link in browser to verify your account - ${verifyLink}`})
+                  }
+                  return res.status(404).json({"errorMessage":"User not registred"})
                 }
   
                 const token = user.generateJWTToken();

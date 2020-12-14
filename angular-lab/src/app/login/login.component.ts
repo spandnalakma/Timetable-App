@@ -4,6 +4,7 @@ import { AppService } from '../app.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { SocialAuthService, FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
+import { ElementFinder } from 'protractor';
 
 @Component({
   selector: 'app-login',
@@ -34,6 +35,8 @@ export class LoginComponent implements OnInit {
                         this.authService.setSession(response);
                         console.log("User is logged in");
                         this.router.navigateByUrl('/');
+                      }else if(response.message){
+                         alert(response.message)
                       }
                     }
                 );

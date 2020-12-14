@@ -73,7 +73,7 @@ router.get('/courses',(req,res)=>{
 
 router.get('/usercourselists/:name',(req,res)=>{
   let name = req.params.name;
-  Schedule.find({"userName":name},(err,result)=>{
+  Schedule.find({"userName":name}).sort([['updatedate',-1]]).exec(function(err,result){
     if(err) {
       console.log(err);
       return res.status(404).json({"errorMessage":"Database error"});
